@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
 import '../widgets/background_picker.widget.dart';
+import '../widgets/dynamic_bar.widget.dart';
 import '../widgets/image_picker.widget.dart';
 
 class CreateAccountScreen2 extends StatefulWidget {
@@ -13,7 +14,6 @@ class CreateAccountScreen2 extends StatefulWidget {
 class _CreateAccountScreen2State extends State<CreateAccountScreen2> {
   @override
   Widget build(BuildContext context) {
-    Size screensize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -21,17 +21,15 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2> {
             children: <Widget>[
               SizedBox(height: 20.h),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: Row(
-                  children: [
-                    Container(
-                      width: screensize.width / 5,
-                      color: primary,
-                      height: 5.h,
-                    ),
-                  ],
-                ),
-              ),
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: DynamicContainerRow(
+                    numberOfContainers: 1,
+                    color: primary,
+                    height: 5.h,
+                    spacing: 10,
+                    containerWidthFactor:
+                       0.16,  // Esto es un ejemplo, representa 1/5 del ancho de la pantalla
+                  )),
               SizedBox(height: 15.h),
               Text(
                 'Tu Perfil',
@@ -41,6 +39,7 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2> {
                     color: primary),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(height: 15.h),
               Container(
                 height: 300.h,
                 child: Stack(
@@ -91,8 +90,16 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2> {
                         label: 'Te puedo ayudar a armar un modelo de neg...',
                         borderColor: Colors.black.withOpacity(0.2),
                         borderFocusedColor: primary),
-                         SizedBox(height: 30.h),
-                    CustomButton(onClick: (){},title: 'Continuar',backgroundColor: primary,titleColor: Colors.white,)
+                    SizedBox(height: 30.h),
+                    CustomButton(
+                      onClick: () {
+                        Navigator.of(context)
+                            .pushNamed(RouteManager.createaccount3);
+                      },
+                      title: 'Continuar',
+                      backgroundColor: primary,
+                      titleColor: Colors.white,
+                    )
                   ],
                 ),
               ),
