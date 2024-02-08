@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
+
 class CustomButton extends StatelessWidget {
   final String title;
   final Color titleColor;
@@ -10,31 +11,30 @@ class CustomButton extends StatelessWidget {
     required this.title,
     required this.titleColor,
     required this.backgroundColor,
-    required this.onClick, 
+    required this.onClick,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double buttonWidth = 400.w;
     double buttomHeight = 60.h;
-    return  SizedBox(
+    return SizedBox(
       width: buttonWidth,
-      height:buttomHeight,
+      height: buttomHeight,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor, 
-          foregroundColor: titleColor, 
+          backgroundColor: backgroundColor,
+          foregroundColor: titleColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0), 
+            borderRadius: BorderRadius.circular(15.0),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         ),
         onPressed: onClick,
         child: Text(
           title,
           style: const TextStyle(
-            fontSize: 16.0, 
+            fontSize: 16.0,
           ),
         ),
       ),
