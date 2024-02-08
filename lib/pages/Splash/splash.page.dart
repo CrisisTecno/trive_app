@@ -32,7 +32,8 @@ class SplashScreen extends StatelessWidget {
                 title: 'Crear tu cuenta',
                 titleColor: Color(0xffFFFFFF),
                 backgroundColor: Color(0xff222222),
-                onClick: () { print("one click");
+                onClick: () { 
+                 Navigator.of(context).pushNamed(RouteManager.createaccount1);
                 },
               ),
              
