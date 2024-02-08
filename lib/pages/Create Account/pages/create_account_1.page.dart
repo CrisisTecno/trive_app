@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:trive_bysc/utils/theme/colors/colors.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
 
@@ -55,7 +54,9 @@ class CreateAccountScreen1 extends StatelessWidget {
                         'Crea tu cuenta',
                         style: TextStyle(color: Color(0xffffffff),fontSize:18.h ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(RouteManager.createaccount2);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primary,
                         shape: RoundedRectangleBorder(
@@ -135,7 +136,7 @@ class TextLeyend extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-          fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xff0228B9)),
+          fontSize: 15, fontWeight: FontWeight.bold, color: primary),
       textAlign: TextAlign.start,
     );
   }

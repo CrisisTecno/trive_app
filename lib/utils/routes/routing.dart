@@ -9,6 +9,7 @@ class RouteManager {
   static const String splashscreen = '/splash';
   static const String homePage = '/';
   static const String createaccount1 = '/createaccount1';
+  static const String createaccount2 = '/createaccount2';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -16,6 +17,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => SplashScreen());
       case createaccount1:
         return MaterialPageRoute(builder: (context) => CreateAccountScreen1());
+      case createaccount2:
+        return MaterialPageRoute(builder: (context) => CreateAccountScreen2());
       default:
         throw FormatException("Route not found");
     }
