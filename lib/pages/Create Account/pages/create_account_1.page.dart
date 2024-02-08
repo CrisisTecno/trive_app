@@ -22,37 +22,46 @@ class CreateAccountScreen1 extends StatelessWidget {
                   children: [
                     Text(
                       'Crea tu cuenta',
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.start,
                     ),
                     Text(
                       'Prepárate para aumentar tu red de contactos',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w200),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w200),
                       textAlign: TextAlign.start,
                     ),
                     SizedBox(height: 50.h),
-
                     TextLeyend(text: 'Correo'),
                     SizedBox(height: 10.h),
-                    InputText(label: 'Correo', icon: Icon(Icons.email_outlined), borderColor: Colors.black.withOpacity(0.2), 
-                    borderFocusedColor: primary),
+                    InputText(
+                        label: 'Correo',
+                        icon: Icon(Icons.email_outlined),
+                        borderColor: Colors.black.withOpacity(0.2),
+                        borderFocusedColor: primary),
                     SizedBox(height: 20.h),
-
                     TextLeyend(text: 'Contraseña'),
                     SizedBox(height: 10.h),
-                    InputText(label: 'Contraseña', icon: Icon(Icons.remove_red_eye_outlined), borderColor: Colors.black.withOpacity(0.2), 
-                    borderFocusedColor: primary),
+                    InputText(
+                        label: 'Contraseña',
+                        icon: Icon(Icons.remove_red_eye_outlined),
+                        borderColor: Colors.black.withOpacity(0.2),
+                        borderFocusedColor: primary),
                     SizedBox(height: 20.h),
-
                     TextLeyend(text: 'Repetir Contraseña'),
                     SizedBox(height: 10.h),
-                    InputText(label: ' Repetir Contraseña', icon: Icon(Icons.remove_red_eye_outlined), borderColor: Colors.black.withOpacity(0.2), 
-                    borderFocusedColor: primary),
+                    InputText(
+                        label: ' Repetir Contraseña',
+                        icon: Icon(Icons.remove_red_eye_outlined),
+                        borderColor: Colors.black.withOpacity(0.2),
+                        borderFocusedColor: primary),
                     SizedBox(height: 50),
                     ElevatedButton(
                       child: Text(
                         'Crea tu cuenta',
-                        style: TextStyle(color: Color(0xffffffff),fontSize:18.h ),
+                        style:
+                            TextStyle(color: Color(0xffffffff), fontSize: 18.h),
                       ),
                       onPressed: () {
                         Navigator.of(context).pushNamed(RouteManager.createaccount2);
@@ -65,7 +74,6 @@ class CreateAccountScreen1 extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 15),
                       ),
                     ),
-
                     SizedBox(height: 40.h),
                     SizedBox(
                       height: 30,
@@ -79,7 +87,8 @@ class CreateAccountScreen1 extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 'O',
-                                style: TextStyle(color: Colors.black, fontSize: 20),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
                               ),
                             ),
                           ),
@@ -89,7 +98,6 @@ class CreateAccountScreen1 extends StatelessWidget {
                       ]),
                     ),
                     SizedBox(height: 30.h),
-                    
                     SocialSignInButton(
                       text: 'Iniciar sesión con Facebook',
                       iconPath: 'public/assets/icons/facebook.svg',
@@ -101,7 +109,7 @@ class CreateAccountScreen1 extends StatelessWidget {
                     SocialSignInButton(
                       text: 'Iniciar sesión con Google',
                       iconPath: 'public/assets/icons/google.svg',
-                   color: Colors.white,
+                      color: Colors.white,
                       titleColor: Colors.black,
                       onPressed: () {},
                     ),
@@ -113,6 +121,7 @@ class CreateAccountScreen1 extends StatelessWidget {
                       titleColor: Colors.white,
                       onPressed: () {},
                     ),
+                    SizedBox(height: 60.h),
                   ],
                 ),
               ),
@@ -142,7 +151,6 @@ class TextLeyend extends StatelessWidget {
   }
 }
 
-
 class SocialSignInButton extends StatelessWidget {
   final String text;
   final String iconPath;
@@ -155,7 +163,8 @@ class SocialSignInButton extends StatelessWidget {
     required this.text,
     required this.iconPath,
     required this.color,
-    required this.onPressed, required this.titleColor,
+    required this.onPressed,
+    required this.titleColor,
   }) : super(key: key);
 
   @override
@@ -169,13 +178,15 @@ class SocialSignInButton extends StatelessWidget {
             height: 35.0,
             width: 35.0,
           ),
-          SizedBox(width: 20.h), 
+          SizedBox(width: 20.h),
         ],
       ),
       label: Text(
-        
         text,
-        style: TextStyle(fontSize: 18, color: titleColor,),
+        style: TextStyle(
+          fontSize: 18,
+          color: titleColor,
+        ),
       ),
       onPressed: onPressed,
       style: ButtonStyle(
