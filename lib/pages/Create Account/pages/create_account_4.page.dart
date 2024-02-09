@@ -45,7 +45,7 @@ class CreateAccountScreen4 extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.h),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'Elige el precio de tu mensaje',

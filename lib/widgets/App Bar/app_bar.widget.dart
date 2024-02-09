@@ -67,7 +67,8 @@ class CustomAppBar extends StatelessWidget {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  print('open menu');
+                     Navigator.of(context)
+                                  .pushNamed(RouteManager.buypoint);
                 },
                 child: Row(
                   children: [

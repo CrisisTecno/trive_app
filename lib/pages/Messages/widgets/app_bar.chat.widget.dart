@@ -39,21 +39,26 @@ class MessagesAppBar extends StatelessWidget {
                 onTap: () {
                   print('open menu');
                 },
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      'public/assets/icons/thunder_blue.svg',
-                      height: 35.h,
-                      width: 35.h,
-                    ),
-                    Text('150',style: TextStyle(
-                      fontSize: 26.h,fontWeight: FontWeight.bold
-                    ),)
-                  ],
+                child: GestureDetector(
+                  onTap: (){       Navigator.of(context)
+                                  .pushNamed(RouteManager.buypoint);},
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'public/assets/icons/thunder_blue.svg',
+                        height: 35.h,
+                        width: 35.h,
+                      ),
+                      Text('150',style: TextStyle(
+                        fontSize: 26.h,fontWeight: FontWeight.bold
+                      ),)
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
+          Divider()
         ],
       ),
     );

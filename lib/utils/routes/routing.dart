@@ -15,6 +15,7 @@ class RouteManager {
   static const String createaccount5 = '/createaccount5';
   static const String createaccount6 = '/createaccount6';
   static const String chat = '/chat';
+  static const String buypoint = '/buypoint';
 
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -37,6 +38,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => HomeScreen());
       case chat:
         return MaterialPageRoute(builder: (context) => MessagesChatScreen());
+      case buypoint:
+        return MaterialPageRoute(builder: (context) => BuyPointsScreen());
       default:
         throw FormatException("Route not found");
     }
