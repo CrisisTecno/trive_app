@@ -4,15 +4,13 @@ import 'package:trive_bysc/utils/utils.dart';
 
 
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget {
  
   const CustomAppBar({
     super.key,
   });
 
-  @override
-  Size get preferredSize => Size.fromHeight(80.h); 
-
+  
   @override
   Widget build(BuildContext context) {
 
