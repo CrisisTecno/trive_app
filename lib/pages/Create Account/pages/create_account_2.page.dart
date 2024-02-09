@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
-import '../widgets/background_picker.widget.dart';
-import '../widgets/dynamic_bar.widget.dart';
-import '../widgets/image_picker.widget.dart';
+import '../widgets/widgets.dart';
 
 class CreateAccountScreen2 extends StatefulWidget {
   @override

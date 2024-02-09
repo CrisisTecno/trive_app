@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:trive_bysc/pages/Create%20Account/widgets/my_chips.widgets.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 import '../../../widgets/widgets.dart';
-import '../widgets/chip_amount.widget.dart';
-import '../widgets/dynamic_bar.widget.dart';
+import '../widgets/widgets.dart';
+
 
 class CreateAccountScreen6 extends StatelessWidget {
   @override
@@ -115,8 +114,9 @@ class CreateAccountScreen6 extends StatelessWidget {
                   Spacer(),
                   CustomButton(
                     onClick: () {
+                      print('al home krj');
                       Navigator.of(context)
-                          .pushNamed(RouteManager.createaccount5);
+                          .pushNamed(RouteManager.homePage);
                     },
                     title: 'Continuar',
                     backgroundColor: primary,

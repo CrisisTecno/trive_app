@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
 
+
 class CreateAccountScreen1 extends StatelessWidget {
   const CreateAccountScreen1({super.key});
 
@@ -10,9 +11,9 @@ class CreateAccountScreen1 extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screensize = MediaQuery.of(context).size;
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold( backgroundColor: Colors.white,
         body: Padding(
-          padding: EdgeInsets.only(top: 50, left: 20, right: 20),
+          padding: EdgeInsets.only(top: 40, left: 20, right: 20),
           child: ListView(
             children: [
               Container(

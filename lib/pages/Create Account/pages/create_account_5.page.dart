@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 import '../../../widgets/widgets.dart';
-import '../widgets/chip_amount.widget.dart';
-import '../widgets/dynamic_bar.widget.dart';
+import '../widgets/widgets.dart';
 
 class CreateAccountScreen5 extends StatelessWidget {
   @override

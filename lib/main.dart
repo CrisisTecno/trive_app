@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:trive_bysc/pages/Splash/encabezado.dart';
 import 'pages/pages.dart';
 import 'utils/utils.dart';
 
@@ -21,9 +20,13 @@ class MyApp extends StatelessWidget {
           title: 'Trive',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Color(0xFFFFFFFF),
+        appBarTheme: AppBarTheme(
+          color: Color(0xFFFFFFFF),
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+      ),
           onGenerateRoute: RouteManager.generateRoute,
           home: SplashScreen(),
         );
