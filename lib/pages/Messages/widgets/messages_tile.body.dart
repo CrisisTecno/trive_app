@@ -19,31 +19,37 @@ class MessageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Divider(height: 1, color: Colors.black.withOpacity(0.1)),
-        ListTile(
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(imageUrl),
+    return GestureDetector(
+      onTap: (){
+           Navigator.of(context)
+                                  .pushNamed(RouteManager.chat);
+      },
+      child: Column(
+        children: [
+          Divider(height: 1, color: Colors.black.withOpacity(0.1)),
+          ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(imageUrl),
+            ),
+            title: Text(
+              name,
+              style: TextStyle(fontSize: 17.h, fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text(messagePreview),
+            trailing: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  date,
+                  style: TextStyle(color: Colors.grey),
+                ),
+                SizedBox(height: 4),
+                _messageCountBubble(messageCount),
+              ],
+            ),
           ),
-          title: Text(
-            name,
-            style: TextStyle(fontSize: 17.h, fontWeight: FontWeight.w600),
-          ),
-          subtitle: Text(messagePreview),
-          trailing: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                date,
-                style: TextStyle(color: Colors.grey),
-              ),
-              SizedBox(height: 4),
-              _messageCountBubble(messageCount),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

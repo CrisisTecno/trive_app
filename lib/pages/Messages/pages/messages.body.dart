@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 import '../../../widgets/widgets.dart';
-import '../controller/messages_tile.body.dart';
+import '../widgets/messages_tile.body.dart';
 
 class Messages extends StatelessWidget {
   const Messages({super.key});

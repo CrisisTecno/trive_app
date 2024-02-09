@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: _screens.elementAt(_selectedIndex), // Muestra el widget seleccionado
+        body: _screens.elementAt(_selectedIndex), 
         floatingActionButton: FloatingActionButton(
           backgroundColor: primary,
           shape: CircleBorder(),
