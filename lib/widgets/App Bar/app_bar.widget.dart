@@ -35,7 +35,8 @@ class CustomAppBar extends StatelessWidget {
           
               GestureDetector(
                 onTap: () {
-                  print('open menu');
+                  Navigator.of(context)
+                                  .pushNamed(RouteManager.notification);
                 },
                 child: Container(
                   height: 40.h,
@@ -50,8 +51,8 @@ class CustomAppBar extends StatelessWidget {
                         width: 35.h,
                       ),
                       Positioned(
-                        top: 10.h,
-                      right: 12.h,
+                        top: 5.h,
+                      right: 6.h,
                           child: Container(
                           height: 10.h,
                           width: 10.h,

@@ -31,7 +31,7 @@ class _UserBackgroundWidgetState extends State<UserBackgroundWidget> {
       children: <Widget>[
         // Usa _backgroundImage si está disponible, de lo contrario muestra una imagen predeterminada
         Container(
-          height: 250.h, // Elimina .h si no estás usando la librería 'flutter_screenutil'
+          height: 230.h, // Elimina .h si no estás usando la librería 'flutter_screenutil'
           decoration: BoxDecoration(
             image: DecorationImage(
               image: _backgroundImage ?? AssetImage('public/assets/images/background_1.png'),

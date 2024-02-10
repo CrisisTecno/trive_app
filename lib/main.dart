@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'pages/pages.dart';
 import 'utils/utils.dart';
 
@@ -17,18 +18,19 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
-          title: 'Trive',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Color(0xFFFFFFFF),
-        appBarTheme: AppBarTheme(
-          color: Color(0xFFFFFFFF),
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
-      ),
-          onGenerateRoute: RouteManager.generateRoute,
-          home: SplashScreen(),
+              title: 'Trive',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+            primarySwatch: Colors.blue,
+            scaffoldBackgroundColor: Color(0xFFFFFFFF),
+            appBarTheme: AppBarTheme(
+              color: Color(0xFFFFFFFF),
+              iconTheme: IconThemeData(color: Colors.black),
+            ),
+          ),
+              onGenerateRoute: RouteManager.generateRoute,
+              home: SplashScreen(),
+          
         );
       },
     );

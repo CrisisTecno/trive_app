@@ -1,0 +1,112 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:trive_bysc/pages/pages.dart';
+import 'package:trive_bysc/utils/utils.dart';
+class CardConexion extends StatelessWidget {
+  const CardConexion({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 10.h),
+        height: 290.h,
+        width: 200.w,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color:Color(0xff0E0E0E).withOpacity(0.2) ),
+            borderRadius: BorderRadius.all(Radius.circular(20.h))),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 130.h,
+              width: 200.w,
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Color(0xffD9D9D9),
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20.h))),
+                    height: 80.h,
+                    width: 200.w,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: SizedBox(
+                      height: 100.h,
+                      width: 200.w,
+                      child: Row(
+                        children: [
+                          Spacer(),
+                          SizedBox(
+                            height: 100.h,
+                            width: 100.h,
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                'https://s3-alpha-sig.figma.com/img/e02b/88f9/f35cb3fb69f2f16eaad3b201aa2c55dc?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mC5sSQiiM~8mnZaqPN0FE0kKa35TMwtcd7QPEkLZZjRQBFNBYGC5FwOUb3YQI6E9f~xteFrnHQhf9dI6~S6Btepy7KD4mn83Ja-0Io2ZJsCyjW9KG9eUraHMOJlt~p790vfkg2NCw5KEFYxRVvSHGHz11s8RxfFAla2tjA~nfLmHkbMzCjr8mMSrlW5AOxaGawsHE1B1sWR9kv6GXeZNUg8Gb7J02sLTG9JldO-ObYxdfZP2ue7nCyuh7WFTZ4g0ZYvNnBl7khBBwqBd6mUrH-yn4PH6NgTghZn3v4DriteacC~p~jppp3pBToQcgnzNdAihi~JHY6v70W9BHfFCYg__',
+                                scale: 100.h,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 15.h,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Enrique Pablos',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17.h,
+                        color: Colors.black)),
+                        SizedBox(height: 5.h,),
+                Text('Fundador de Skipeat',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15.h,
+                        color: Colors.grey)),
+                        SizedBox(height: 5.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CustomLabel(
+                      label: '+ 5k',
+                      pathSvg: 'public/assets/icons/people.svg',
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10.h,),
+                Container(
+                  width: 120.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20)
+                    ),
+                    color: primary
+                  ),
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 5.h,vertical: 3.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Conectar',style: TextStyle(fontSize: 15.h,color: Colors.white,fontWeight: FontWeight.w500),),
+                        SizedBox(width: 3.h,),
+                        SvgPicture.asset('public/assets/icons/thunder_blank.svg',height: 20.h,width: 20.h,)
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ));
+  }
+}

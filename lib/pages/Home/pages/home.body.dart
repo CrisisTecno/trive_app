@@ -70,6 +70,24 @@ class Home extends StatelessWidget {
               Text('Filtrar',style: TextStyle(fontSize: 20.h,fontWeight: FontWeight.w400 ),),
               ],
             ),
+            SizedBox(
+                  height: 20.h,
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      CardConexion(),
+                      CardConexion(),
+                      CardConexion(),
+                      CardConexion(),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Divider(color: Colors.black.withOpacity(0.5),),
           SocialCard(),
           SocialCard(),
           ],
