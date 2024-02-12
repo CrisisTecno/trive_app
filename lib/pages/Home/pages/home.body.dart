@@ -12,15 +12,14 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: ClampingScrollPhysics(), 
-
+      physics: ClampingScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-             CustomAppBar(),
+            CustomAppBar(),
             Padding(
-              padding: EdgeInsets.symmetric( vertical: 8.h),
+              padding: EdgeInsets.symmetric(vertical: 8.h),
               child: SearchWidget(
                   label: 'Busca Expertos',
                   icon: Icon(
@@ -55,41 +54,54 @@ class Home extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            
-             ClipRRect(
-                borderRadius: BorderRadiusDirectional.all(Radius.circular(30.h)),
-                  child: Image.network(
-                      'https://s3-alpha-sig.figma.com/img/cad7/d9fb/f7a893a626e803a9c0c6644e499ba574?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=odvfR24Zoiy8awIX2Eq3NKJMk0zL6T~cDF0VFT2~zdC3wYVBMSzsz4MtLMZPNMxOGDwSp9nUy8ogyjnNZMfcrtMy3zcLNrgdwdrHAS2q0XztM2seybc0s329zDcxGuM4OfruCF591BDcTz8Q6JNKuE9UCq7sqd26nQeVmvJLMAFv3rBLNtvpBT-U9VZufzVe2~DROdMvREBaLtjPiH0fErsB6ONlVyoHtfo7NHDwDEh3lqzKI~V~yPGPfAWj4RpFwz83fZcVPV3guw6hKexCelYpyJcxqd3Hw-S6WAJ5cZTesFkQKSVOX7Kx95sHLqcMFo4phh6FCNaYawAuCLVVcQ__')),
+            ClipRRect(
+                borderRadius:
+                    BorderRadiusDirectional.all(Radius.circular(30.h)),
+                child: Image.network(
+                    'https://s3-alpha-sig.figma.com/img/cad7/d9fb/f7a893a626e803a9c0c6644e499ba574?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=odvfR24Zoiy8awIX2Eq3NKJMk0zL6T~cDF0VFT2~zdC3wYVBMSzsz4MtLMZPNMxOGDwSp9nUy8ogyjnNZMfcrtMy3zcLNrgdwdrHAS2q0XztM2seybc0s329zDcxGuM4OfruCF591BDcTz8Q6JNKuE9UCq7sqd26nQeVmvJLMAFv3rBLNtvpBT-U9VZufzVe2~DROdMvREBaLtjPiH0fErsB6ONlVyoHtfo7NHDwDEh3lqzKI~V~yPGPfAWj4RpFwz83fZcVPV3guw6hKexCelYpyJcxqd3Hw-S6WAJ5cZTesFkQKSVOX7Kx95sHLqcMFo4phh6FCNaYawAuCLVVcQ__')),
             SizedBox(
               height: 20.h,
             ),
-            Row(
-              children: [
-                Text('Conexiones para ti',style: TextStyle(fontSize: 23.h,fontWeight: FontWeight.bold ),),
-              Spacer(),
-              Text('Filtrar',style: TextStyle(fontSize: 20.h,fontWeight: FontWeight.w400 ),),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.h),
+              child: Row(
+                children: [
+                  Text(
+                    'Conexiones para ti',
+                    style:
+                        TextStyle(fontSize: 23.h, fontWeight: FontWeight.bold),
+                  ),
+                  Spacer(),
+                  Text(
+                    'Filtrar',
+                    style:
+                        TextStyle(fontSize: 18.h, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
-                  height: 20.h,
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      CardConexion(),
-                      CardConexion(),
-                      CardConexion(),
-                      CardConexion(),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Divider(color: Colors.black.withOpacity(0.5),),
-          SocialCard(),
-          SocialCard(),
+              height: 20.h,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  CardConexion(),
+                  CardConexion(),
+                  CardConexion(),
+                  CardConexion(),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Divider(
+              color: Colors.black.withOpacity(0.5),
+            ),
+            SocialCard(),
+            SocialCard(),
           ],
         ),
       ),

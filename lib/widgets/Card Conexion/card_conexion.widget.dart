@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trive_bysc/pages/pages.dart';
 import 'package:trive_bysc/utils/utils.dart';
+
 class CardConexion extends StatelessWidget {
   const CardConexion({
     super.key,
@@ -15,7 +16,7 @@ class CardConexion extends StatelessWidget {
         width: 200.w,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color:Color(0xff0E0E0E).withOpacity(0.2) ),
+            border: Border.all(color: Color(0xff0E0E0E).withOpacity(0.2)),
             borderRadius: BorderRadius.all(Radius.circular(20.h))),
         child: Column(
           children: [
@@ -55,10 +56,27 @@ class CardConexion extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      height: 40.h,
+                      width: 40.h,
+                      padding: EdgeInsets.all(6.h),
+                      child: SvgPicture.asset(
+                          'public/assets/icons/start_green.svg'),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20.h))),
+                    ),
+                  ),
                 ],
               ),
             ),
-            SizedBox(height: 15.h,),
+            SizedBox(
+              height: 15.h,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -67,13 +85,17 @@ class CardConexion extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         fontSize: 17.h,
                         color: Colors.black)),
-                        SizedBox(height: 5.h,),
+                SizedBox(
+                  height: 5.h,
+                ),
                 Text('Fundador de Skipeat',
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 15.h,
                         color: Colors.grey)),
-                        SizedBox(height: 5.h,),
+                SizedBox(
+                  height: 5.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -83,23 +105,35 @@ class CardConexion extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 Container(
                   width: 120.h,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20)
-                    ),
-                    color: primary
-                  ),
+                      borderRadius: BorderRadius.all(Radius.circular(30.h)),
+                      color: primary),
                   child: Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 5.h,vertical: 3.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 3.h, vertical: 7.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Conectar',style: TextStyle(fontSize: 15.h,color: Colors.white,fontWeight: FontWeight.w500),),
-                        SizedBox(width: 3.h,),
-                        SvgPicture.asset('public/assets/icons/thunder_blank.svg',height: 20.h,width: 20.h,)
+                        Text(
+                          'Conectar',
+                          style: TextStyle(
+                              fontSize: 18.h,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          width: 3.h,
+                        ),
+                        SvgPicture.asset(
+                          'public/assets/icons/thunder_blank.svg',
+                          height: 20.h,
+                          width: 20.h,
+                        )
                       ],
                     ),
                   ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
@@ -49,8 +48,9 @@ class DiaryState extends State<Diary> {
         child: Text(
           title,
           style: TextStyle(
-            color: _selectedPageIndex == pageIndex ? primary : Colors.grey, fontSize: 17.h,fontWeight: FontWeight.w700
-          ),
+              color: _selectedPageIndex == pageIndex ? primary : Colors.grey,
+              fontSize: 17.h,
+              fontWeight: FontWeight.w700),
         ),
       ),
     );
@@ -58,13 +58,16 @@ class DiaryState extends State<Diary> {
 
   @override
   Widget build(BuildContext context) {
-      Size screensize = MediaQuery.of(context).size;
+    Size screensize = MediaQuery.of(context).size;
     return SizedBox(
-      height: screensize.height*0.9,             
+      height: screensize.height * 0.9,
       width: 1000.w,
       child: Column(
         children: [
-          CustomAppBar(), 
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.h),
+            child: CustomAppBar(),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -91,5 +94,3 @@ class DiaryState extends State<Diary> {
     );
   }
 }
-
-
