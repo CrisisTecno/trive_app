@@ -108,6 +108,7 @@ class _MyBottomAppBarState extends State<MyBottomAppBar> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      elevation: 0.0,
       shape: CircularNotchedRectangle(),
       notchMargin: 6.0,
       color: Colors.white,

@@ -17,6 +17,9 @@ class RouteManager {
   static const String chat = '/chat';
   static const String buypoint = '/buypoint';
   static const String notification = '/notification';
+  static const String post_screen = '/postScreen';
+  static const String meeting = '/meeting';
+  static const String dairy = '/dairy';
 
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -43,6 +46,12 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => BuyPointsScreen());
       case notification:
         return MaterialPageRoute(builder: (context) => NotificationScreen());
+      case post_screen:
+        return MaterialPageRoute(builder: (context) => PostScreen());
+      case meeting:
+        return MaterialPageRoute(builder: (context) => MeetingDetailsPage());
+      case dairy:
+        return MaterialPageRoute(builder: (context) => DairyPage());
       default:
         throw FormatException("Route not found");
     }

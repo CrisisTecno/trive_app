@@ -70,19 +70,24 @@ class ContactTile extends StatelessWidget {
               ],
             ),
           ),
-          Column(
-            children: [
-              SvgPicture.asset(
-                'public/assets/icons/video.svg',
-                height: 40.h,
-                width: 40.h,
-              ),
-              SizedBox(width: 3.h),
-              Text(
-                'Agendar',
-                style: TextStyle(fontSize: 15.h, color: Colors.white),
-              )
-            ],
+          GestureDetector(
+            onTap: (){
+               Navigator.of(context).pushNamed(RouteManager.dairy);
+            },
+            child: Column(
+              children: [
+                SvgPicture.asset(
+                  'public/assets/icons/video.svg',
+                  height: 40.h,
+                  width: 40.h,
+                ),
+                SizedBox(width: 3.h),
+                Text(
+                  'Agendar',
+                  style: TextStyle(fontSize: 15.h, color: Colors.white),
+                )
+              ],
+            ),
           )
         ],
       ),

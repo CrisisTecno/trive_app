@@ -1,21 +1,27 @@
-
 import 'package:flutter/material.dart';
+import 'package:trive_bysc/pages/Publish/widgets/date.part.dart';
+import 'package:trive_bysc/pages/Publish/widgets/time.part.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
-import '../../../widgets/widgets.dart';
-import 'pages.dart';
+import 'hour.part.dart';
 
-class Diary extends StatefulWidget {
-  const Diary({Key? key}) : super(key: key);
+class PublishButton extends StatefulWidget {
+  final double width;
+  final double height;
+
+  const PublishButton({
+    Key? key,
+    required this.width,
+    required this.height,
+  }) : super(key: key);
 
   @override
-  DiaryState createState() => DiaryState();
+  _PublishButtonState createState() => _PublishButtonState();
 }
 
-class DiaryState extends State<Diary> {
+class _PublishButtonState extends State<PublishButton> {
   late PageController _pageController;
   int _selectedPageIndex = 0;
-
   @override
   void initState() {
     super.initState();
@@ -31,7 +37,7 @@ class DiaryState extends State<Diary> {
   void _onNavigationButtonTapped(int pageIndex) {
     _pageController.animateToPage(
       pageIndex,
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds:100),
       curve: Curves.easeInOut,
     );
   }
@@ -49,27 +55,29 @@ class DiaryState extends State<Diary> {
         child: Text(
           title,
           style: TextStyle(
-            color: _selectedPageIndex == pageIndex ? primary : Colors.grey, fontSize: 17.h,fontWeight: FontWeight.w700
+            color: _selectedPageIndex == pageIndex ? primary : Colors.grey,
+            fontSize: 17.h,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
     );
   }
-
+ 
   @override
   Widget build(BuildContext context) {
-      Size screensize = MediaQuery.of(context).size;
+
     return SizedBox(
-      height: screensize.height*0.9,             
-      width: 1000.w,
+      height: widget.height, 
+      width: widget.width, 
       child: Column(
         children: [
-          CustomAppBar(), 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _navigationButton('Calendario', 0),
-              _navigationButton('Solicitudes', 1),
+              _navigationButton('Fecha', 0),
+              _navigationButton('Hora', 1),
+              _navigationButton('Tiempo', 2), // Cambiado a Publicar
             ],
           ),
           Expanded(
@@ -81,8 +89,9 @@ class DiaryState extends State<Diary> {
                 });
               },
               children: [
-                CalendarPart(),
-                SolicitudPart(),
+                DatePart(), 
+                HourPart(), 
+                TimePartSelect(), 
               ],
             ),
           ),
@@ -91,5 +100,3 @@ class DiaryState extends State<Diary> {
     );
   }
 }
-
-
