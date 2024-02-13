@@ -17,7 +17,10 @@ class Profile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomAppBar(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: CustomAppBar(),
+          ),
           Container(
             height: 300.h,
             child: Stack(
@@ -28,7 +31,7 @@ class Profile extends StatelessWidget {
             ),
           ),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20.h),
+            padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -61,12 +64,12 @@ class Profile extends StatelessWidget {
                   height: 10.h,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustomLabel(
                       label: '200K seguidores',
                       pathSvg: 'public/assets/icons/people.svg',
                     ),
+                    Spacer(),
                     CustomLabel(
                       label: '+500 conexiones',
                       pathSvg: 'public/assets/icons/thunder_border.svg',
@@ -86,7 +89,7 @@ class Profile extends StatelessWidget {
                 SizedBox(
                   height: 15.h,
                 ),
-                Wrap(spacing: 20.h, runSpacing: 2.h, children: [
+                Wrap(spacing: 5.h, runSpacing: 1.h, children: [
                   CustomTag(
                     label: '#Marketing ',
                   ),
@@ -111,7 +114,7 @@ class Profile extends StatelessWidget {
                 ),
                 CustomButtonProfile(
                   onClick: () {},
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.white.withOpacity(1),
                   title: 'Editar Perfil',
                   titleColor: primary,
                 ),
@@ -131,13 +134,13 @@ class Profile extends StatelessWidget {
                       fontSize: 18.h,
                       color: Colors.black,
                     )),
-                     SizedBox(
+                SizedBox(
                   height: 10.h,
                 ),
-                    Text('Mis conexiones',
+                Text('Mis conexiones',
                     style:
                         TextStyle(fontWeight: FontWeight.w700, fontSize: 24.h)),
-                        SizedBox(
+                SizedBox(
                   height: 20.h,
                 ),
                 SingleChildScrollView(
@@ -175,7 +178,7 @@ class CustomTag extends StatelessWidget {
     return Text(label,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 15.h,
+          fontSize: 13.h,
           color: Colors.black,
         ));
   }
@@ -204,4 +207,3 @@ class CustomLabel extends StatelessWidget {
     );
   }
 }
-

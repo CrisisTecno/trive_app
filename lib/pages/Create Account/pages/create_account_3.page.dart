@@ -22,7 +22,7 @@ class CreateAccountScreen3 extends StatelessWidget {
                     height: 5.h,
                     spacing: 10,
                     containerWidthFactor:
-                       0.16,  // Esto es un ejemplo, representa 1/5 del ancho de la pantalla
+                        0.16, // Esto es un ejemplo, representa 1/5 del ancho de la pantalla
                   )),
               SizedBox(height: 35.h),
               Row(
@@ -47,8 +47,8 @@ class CreateAccountScreen3 extends StatelessWidget {
                     children: [
                       Text(
                         'Negocios y Emprendimiento',
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 20.h),
                       ReusableChips(
@@ -68,8 +68,8 @@ class CreateAccountScreen3 extends StatelessWidget {
                       SizedBox(height: 30.h),
                       Text(
                         'Desarrollo Personal',
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 20.h),
                       ReusableChips(
@@ -86,8 +86,8 @@ class CreateAccountScreen3 extends StatelessWidget {
                       SizedBox(height: 30.h),
                       Text(
                         'Tecnología y Ciencia',
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 20.h),
                       ReusableChips(
@@ -107,21 +107,21 @@ class CreateAccountScreen3 extends StatelessWidget {
                     ]),
               ),
               SizedBox(height: 180.h),
-               Row(
-                 children: [
+              Row(
+                children: [
                   Spacer(),
-                   CustomButton(
-                            onClick: () {
-                              Navigator.of(context)
-                                  .pushNamed(RouteManager.createaccount4);
-                            },
-                            title: 'Continuar',
-                            backgroundColor: primary,
-                            titleColor: Colors.white,
-                          ),
-                          Spacer(),
-                 ],
-               )
+                  CustomButton(
+                    onClick: () {
+                      Navigator.of(context)
+                          .pushNamed(RouteManager.createaccount4);
+                    },
+                    title: 'Continuar',
+                    backgroundColor: primary,
+                    titleColor: Colors.white,
+                  ),
+                  Spacer(),
+                ],
+              )
             ],
           ),
         ),

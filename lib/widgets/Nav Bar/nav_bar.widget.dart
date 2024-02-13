@@ -58,7 +58,7 @@
 //   }) {
 //     return InkWell(
 //   splashColor: Colors.transparent, // Elimina la animación de la onda
-//   highlightColor: Colors.transparent, 
+//   highlightColor: Colors.transparent,
 //       onTap: () {
 //         setState(() {
 //           _selectedIndex = index;
@@ -83,7 +83,6 @@
 //     );
 //   }
 // }
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -110,51 +109,45 @@ class _MyBottomAppBarState extends State<MyBottomAppBar> {
     return BottomAppBar(
       elevation: 0.0,
       shape: CircularNotchedRectangle(),
-      notchMargin: 6.0,
       color: Colors.white,
-      child: Padding(
-        padding:  EdgeInsets.symmetric(vertical: 10.h),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            _buildTabItem(
-                 option1: 'public/assets/navbar/menu1.svg',
-              option2: 'public/assets/navbar/menu2.svg',
-              text: 'Inicio',
-              isSelected: widget.selectedIndex == 0,
-              index: 0,
-            ),
-            _buildTabItem(
-              option1: 'public/assets/navbar/messages1.svg',
-              option2: 'public/assets/navbar/messages2.svg',
-              text: 'Mensajes',
-              isSelected: widget.selectedIndex == 1,
-              index: 1,
-            ),
-            SizedBox(width: 48), // Espacio para el FAB
-            _buildTabItem(
-                option1: 'public/assets/navbar/agenda1.svg',
-              option2: 'public/assets/navbar/agenda2.svg',
-              text: 'Agenda',
-              isSelected: widget.selectedIndex == 2,
-              index: 2,
-            ),
-            _buildTabItem(
-              option1: 'public/assets/navbar/profile1.svg',
-              option2: 'public/assets/navbar/profile2.svg',
-              text: 'Perfil',
-              isSelected: widget.selectedIndex == 3,
-              index: 3,
-            ),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          _buildTabItem(
+            option1: 'public/assets/navbar/menu1.svg',
+            option2: 'public/assets/navbar/menu2.svg',
+            text: 'Inicio',
+            isSelected: widget.selectedIndex == 0,
+            index: 0,
+          ),
+          _buildTabItem(
+            option1: 'public/assets/navbar/messages1.svg',
+            option2: 'public/assets/navbar/messages2.svg',
+            text: 'Mensajes',
+            isSelected: widget.selectedIndex == 1,
+            index: 1,
+          ),
+          SizedBox(width: 40), // Espacio para el FAB
+          _buildTabItem(
+            option1: 'public/assets/navbar/agenda1.svg',
+            option2: 'public/assets/navbar/agenda2.svg',
+            text: 'Agenda',
+            isSelected: widget.selectedIndex == 2,
+            index: 2,
+          ),
+          _buildTabItem(
+            option1: 'public/assets/navbar/profile1.svg',
+            option2: 'public/assets/navbar/profile2.svg',
+            text: 'Perfil',
+            isSelected: widget.selectedIndex == 3,
+            index: 3,
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildTabItem({
-
     required String text,
     required String option1,
     required String option2,
@@ -166,7 +159,6 @@ class _MyBottomAppBarState extends State<MyBottomAppBar> {
       highlightColor: Colors.transparent,
       onTap: () => widget.onItemTapped(index),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset(

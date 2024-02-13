@@ -18,10 +18,10 @@ class CustomButtonProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double buttonWidth = 400.w;
-    double buttomHeight = 60.h;
+    double buttomHeight = 50.h;
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: primary,width: 1.h),
+        border: Border.all(color: primary, width: 1.5.h),
         borderRadius: BorderRadius.circular(20.0),
       ),
       width: buttonWidth,
@@ -30,17 +30,18 @@ class CustomButtonProfile extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           foregroundColor: titleColor,
-          
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(19.0),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         ),
         onPressed: onClick,
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 22.h,
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 20.h,
+            ),
           ),
         ),
       ),

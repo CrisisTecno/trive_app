@@ -120,17 +120,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(30))),
                 child: Column(
-                  
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         _buildOptionButton(
-                            'public/assets/icons/publication.svg', 'Publicación', () { Navigator.of(context).pushNamed(RouteManager.post_screen);}),
+                            'public/assets/icons/publication.svg',
+                            'Publicación', () {
+                          Navigator.of(context)
+                              .pushNamed(RouteManager.post_screen);
+                        }),
                         _buildOptionButton(
                             'public/assets/icons/coruse.svg', 'Curso', () {}),
                         _buildOptionButton(
-                            'public/assets/icons/meeting.svg', 'Meeting', () {Navigator.of(context).pushNamed(RouteManager.meeting);}),
+                            'public/assets/icons/meeting.svg', 'Meeting', () {
+                          Navigator.of(context).pushNamed(RouteManager.meeting);
+                        }),
                       ],
                     ),
                     Spacer(),
@@ -138,31 +143,49 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-           
-            
           ],
-        
         ),
+
+        // floatingActionButton: Container(
+        //   color: Colors.white,
+        //   width: double.infinity,
+        //   child: Row(
+        //     children: [
+        //       Spacer(
+        //         flex: 1,
+        //       ),
+        //       FloatingActionButton(
+        //         heroTag: 1,
+        //         elevation: 0.0,
+        //         backgroundColor: primary,
+        //         shape: CircleBorder(),
+        //         child:
+        //             Icon(Icons.close_rounded, color: Colors.white, size: 35.h),
+        //         onPressed: () {
+        //           hideOverlay();
+        //         },
+        //       ),
+        //       Spacer(
+        //         flex: 1,
+        //       ),
+        //     ],
+        //   ),
+        // ),
         floatingActionButton: FloatingActionButton(
           heroTag: 1,
-          elevation: 0,
+          elevation: 0.0,
           backgroundColor: primary,
-                shape: CircleBorder(),
-                child: Icon(Icons.close_rounded,color: Colors.white, size: 35.h),
-                onPressed: () {
-                 
-                    hideOverlay();
-              
-                },
-                
-                
-              ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar:MyBottomAppBar(
-                selectedIndex: _selectedIndex,
-              onItemTapped: _NoneTapped,
-              ),
-              
+          shape: CircleBorder(),
+          child: Icon(Icons.close_rounded, color: Colors.white, size: 35.h),
+          onPressed: () {
+            hideOverlay();
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: MyBottomAppBar(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _NoneTapped,
+        ),
       ),
     );
     Overlay.of(context).insert(overlayEntry!);
@@ -193,12 +216,11 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               padding: EdgeInsets.all(10.h),
               // padding: EdgeInsets.only(left: 15.h,right: 15.h,top: 5.h),
-              
+
               decoration: BoxDecoration(
-                color: Color(0xffF8F9FF).withOpacity(0.2),
-                shape: BoxShape.circle,
-                border: Border.all(color:Color(0xffD9D9D9),width: 2.h )
-              ),
+                  color: Color(0xffF8F9FF).withOpacity(0.2),
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Color(0xffD9D9D9), width: 2.h)),
               child: SvgPicture.asset(
                 svgPath,
                 width: 30.h,
@@ -220,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: _screens.elementAt(_selectedIndex),
         floatingActionButton: isFabVisible
             ? FloatingActionButton(
-              heroTag: 1,
+                heroTag: 1,
                 backgroundColor: primary,
                 shape: CircleBorder(),
                 child: Icon(Icons.add, color: Colors.white, size: 35.h),
@@ -235,10 +257,12 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: isFabVisible ? MyBottomAppBar(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _onItemTapped,
-        ):null,
+        bottomNavigationBar: isFabVisible
+            ? MyBottomAppBar(
+                selectedIndex: _selectedIndex,
+                onItemTapped: _onItemTapped,
+              )
+            : null,
       ),
     );
   }
@@ -248,7 +272,6 @@ class _HomeScreenState extends State<HomeScreen> {
       _selectedIndex = index;
     });
   }
-  void _NoneTapped(int index){
 
-  }
+  void _NoneTapped(int index) {}
 }
