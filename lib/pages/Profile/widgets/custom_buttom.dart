@@ -21,7 +21,7 @@ class CustomButtonProfile extends StatelessWidget {
     double buttomHeight = 60.h;
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: primary,width: 2.h),
+        border: Border.all(color: primary,width: 1.h),
         borderRadius: BorderRadius.circular(20.0),
       ),
       width: buttonWidth,
@@ -32,7 +32,7 @@ class CustomButtonProfile extends StatelessWidget {
           foregroundColor: titleColor,
           
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(19.0),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         ),
