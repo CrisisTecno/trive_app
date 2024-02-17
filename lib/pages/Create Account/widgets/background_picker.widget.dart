@@ -29,9 +29,8 @@ class _UserBackgroundWidgetState extends State<UserBackgroundWidget> {
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        // Usa _backgroundImage si está disponible, de lo contrario muestra una imagen predeterminada
         Container(
-          height: 230.h, // Elimina .h si no estás usando la librería 'flutter_screenutil'
+          height: 230.h,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: _backgroundImage ?? AssetImage('public/assets/images/background_1.png'),
@@ -52,7 +51,7 @@ class _UserBackgroundWidgetState extends State<UserBackgroundWidget> {
               ),
               child: SvgPicture.asset(
                 'public/assets/icons/pencil.svg',
-                height: 20.0, // El tamaño del icono del lápiz
+                height: 20.0, 
                 width: 20.0,
               ),
             ),
