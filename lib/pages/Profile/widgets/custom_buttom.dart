@@ -31,7 +31,7 @@ class CustomButtonProfile extends StatelessWidget {
           backgroundColor: backgroundColor,
           foregroundColor: titleColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(19.0),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         ),

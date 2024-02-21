@@ -37,6 +37,7 @@ export 'Messages/widgets/contac_card.widget.dart';
 export 'Messages/widgets/contact_tile.widget.dart';
 export 'Messages/widgets/custom_input_field.widget.dart';
 export 'Messages/widgets/messages_tile.body.dart';
+export 'Person/pages/person_profile.page.dart';
 export 'Person/pages/person_profile.dart';
 export 'Person/widgets/custom-app-bar-person.dart';
 export 'Profile/pages/profile.body.dart';
