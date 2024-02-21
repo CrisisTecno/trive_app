@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trive_bysc/pages/Diary/widgets/caendar.widget.dart';
-import 'package:trive_bysc/pages/Diary/widgets/solicitud_card.dart';
 import 'package:trive_bysc/utils/utils.dart';
-
 
 class DairyDatePart extends StatelessWidget {
   const DairyDatePart({
@@ -18,9 +16,15 @@ class DairyDatePart extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.h),
-              child: Text('Escoge una fecha',style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 20.h)),
+              child: Text('Escoge una fecha',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20.h)),
             ),
-            SizedBox(height: 20.h,),
+            SizedBox(
+              height: 20.h,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.h),
               child: Container(

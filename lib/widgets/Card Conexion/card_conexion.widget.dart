@@ -80,11 +80,17 @@ class CardConexion extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Enrique Pablos',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17.h,
-                        color: Colors.black)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(RouteManager.person_profile);
+                  },
+                  child: Text('Enrique Pablos',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17.h,
+                          color: Colors.black)),
+                ),
                 SizedBox(
                   height: 5.h,
                 ),

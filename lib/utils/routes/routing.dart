@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:trive_bysc/pages/Create%20Account/pages/login_account_1.page.dart';
 
 import '../../pages/pages.dart';
 
-
 class RouteManager {
-
   static const String settingsPage = '/settings';
   static const String splashscreen = '/splash';
   static const String homePage = '/home';
@@ -20,7 +19,8 @@ class RouteManager {
   static const String post_screen = '/postScreen';
   static const String meeting = '/meeting';
   static const String dairy = '/dairy';
-
+  static const String person_profile = '/person_profile';
+  static const String login = '/login';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -28,6 +28,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => SplashScreen());
       case createaccount1:
         return MaterialPageRoute(builder: (context) => CreateAccountScreen1());
+      case login:
+        return MaterialPageRoute(builder: (context) => LoginAccountScreen1());
       case createaccount2:
         return MaterialPageRoute(builder: (context) => CreateAccountScreen2());
       case createaccount3:
@@ -52,6 +54,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => MeetingDetailsPage());
       case dairy:
         return MaterialPageRoute(builder: (context) => DairyPage());
+      case person_profile:
+        return MaterialPageRoute(builder: (context) => ProfileScreen());
       default:
         throw FormatException("Route not found");
     }
