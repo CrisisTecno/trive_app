@@ -21,7 +21,7 @@ class RouteManager {
   static const String dairy = '/dairy';
   static const String person_profile = '/person_profile';
 
-  static const String person_profile = '/person_profile';
+  //static const String person_profile = '/person_profile';
   static const String login = '/login';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -56,6 +56,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => MeetingDetailsPage());
       case dairy:
         return MaterialPageRoute(builder: (context) => DairyPage());
+      case person_profile:
+        return MaterialPageRoute(builder: (context) => ProfileScreen());
       default:
         throw FormatException("Route not found");
     }

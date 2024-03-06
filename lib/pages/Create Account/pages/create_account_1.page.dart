@@ -10,6 +10,7 @@ class CreateAccountScreen1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screensize = MediaQuery.of(context).size;
+    
     return SafeArea(
       child: Scaffold( backgroundColor: Colors.white,
         body: Padding(
