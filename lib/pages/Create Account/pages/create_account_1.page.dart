@@ -3,16 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
 
-
 class CreateAccountScreen1 extends StatelessWidget {
   const CreateAccountScreen1({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size screensize = MediaQuery.of(context).size;
-    
+
     return SafeArea(
-      child: Scaffold( backgroundColor: Colors.white,
+      child: Scaffold(
+        backgroundColor: Colors.white,
         body: Padding(
           padding: EdgeInsets.only(top: 40, left: 20, right: 20),
           child: ListView(
@@ -66,7 +66,8 @@ class CreateAccountScreen1 extends StatelessWidget {
                             TextStyle(color: Color(0xffffffff), fontSize: 18.h),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pushNamed(RouteManager.createaccount2);
+                        Navigator.of(context)
+                            .pushNamed(RouteManager.createaccount2);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primary,
@@ -146,8 +147,8 @@ class TextLeyend extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
-          fontSize: 15, fontWeight: FontWeight.bold, color: primary),
+      style:
+          TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: primary),
       textAlign: TextAlign.start,
     );
   }

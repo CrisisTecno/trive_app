@@ -2,29 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
-
-
 class CustomAppBar extends StatelessWidget {
- 
   const CustomAppBar({
     super.key,
   });
 
-  
   @override
   Widget build(BuildContext context) {
-
-   
     return Padding(
-      padding:  EdgeInsets.symmetric(vertical: 10.h),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Column(
         children: [
           Row(
             children: [
-              
               GestureDetector(
                 onTap: () {
-                  print('open menu');
+                  Navigator.of(context).pushNamed(RouteManager.menu);
                 },
                 child: SvgPicture.asset(
                   'public/assets/icons/menu.svg',
@@ -32,11 +25,9 @@ class CustomAppBar extends StatelessWidget {
                   width: 40.h,
                 ),
               ),
-          
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                                  .pushNamed(RouteManager.notification);
+                  Navigator.of(context).pushNamed(RouteManager.notification);
                 },
                 child: Container(
                   height: 40.h,
@@ -44,7 +35,6 @@ class CustomAppBar extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      
                       SvgPicture.asset(
                         'public/assets/icons/notification.svg',
                         height: 35.h,
@@ -52,8 +42,8 @@ class CustomAppBar extends StatelessWidget {
                       ),
                       Positioned(
                         top: 5.h,
-                      right: 6.h,
-                          child: Container(
+                        right: 6.h,
+                        child: Container(
                           height: 10.h,
                           width: 10.h,
                           decoration: BoxDecoration(
@@ -68,8 +58,7 @@ class CustomAppBar extends StatelessWidget {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                     Navigator.of(context)
-                                  .pushNamed(RouteManager.buypoint);
+                  Navigator.of(context).pushNamed(RouteManager.buypoint);
                 },
                 child: Row(
                   children: [
@@ -78,13 +67,17 @@ class CustomAppBar extends StatelessWidget {
                       height: 35.h,
                       width: 35.h,
                     ),
-                    Text('150',style: TextStyle(
-                      fontSize: 26.h,fontWeight: FontWeight.bold
-                    ),)
+                    Text(
+                      '150',
+                      style: TextStyle(
+                          fontSize: 26.h, fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
               ),
-              SizedBox(width: 15.w,)
+              SizedBox(
+                width: 15.w,
+              )
             ],
           ),
           Divider(),

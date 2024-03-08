@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trive_bysc/pages/Create%20Account/pages/login_account_1.page.dart';
+import 'package:trive_bysc/widgets/Menu/menu.dart';
 
 import '../../pages/pages.dart';
 
@@ -20,6 +21,7 @@ class RouteManager {
   static const String meeting = '/meeting';
   static const String dairy = '/dairy';
   static const String person_profile = '/person_profile';
+  static const String menu = '/menu';
 
   //static const String person_profile = '/person_profile';
   static const String login = '/login';
@@ -58,6 +60,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => DairyPage());
       case person_profile:
         return MaterialPageRoute(builder: (context) => ProfileScreen());
+      case menu:
+        return MaterialPageRoute(builder: (context) => MenuView());
       default:
         throw FormatException("Route not found");
     }
