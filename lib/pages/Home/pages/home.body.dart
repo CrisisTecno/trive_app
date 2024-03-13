@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 import '../../../widgets/widgets.dart';
@@ -57,8 +58,7 @@ class Home extends StatelessWidget {
             ClipRRect(
                 borderRadius:
                     BorderRadiusDirectional.all(Radius.circular(30.h)),
-                child: Image.network(
-                    'https://s3-alpha-sig.figma.com/img/cad7/d9fb/f7a893a626e803a9c0c6644e499ba574?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=odvfR24Zoiy8awIX2Eq3NKJMk0zL6T~cDF0VFT2~zdC3wYVBMSzsz4MtLMZPNMxOGDwSp9nUy8ogyjnNZMfcrtMy3zcLNrgdwdrHAS2q0XztM2seybc0s329zDcxGuM4OfruCF591BDcTz8Q6JNKuE9UCq7sqd26nQeVmvJLMAFv3rBLNtvpBT-U9VZufzVe2~DROdMvREBaLtjPiH0fErsB6ONlVyoHtfo7NHDwDEh3lqzKI~V~yPGPfAWj4RpFwz83fZcVPV3guw6hKexCelYpyJcxqd3Hw-S6WAJ5cZTesFkQKSVOX7Kx95sHLqcMFo4phh6FCNaYawAuCLVVcQ__')),
+                child: Image.network(banner)),
             SizedBox(
               height: 20.h,
             ),

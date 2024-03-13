@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 class SocialCard extends StatefulWidget {
@@ -75,10 +76,7 @@ class _SocialCardState extends State<SocialCard> {
               children: [
                 CircleAvatar(
                   minRadius: 30.h,
-                  backgroundImage: NetworkImage(
-                      'https://s3-alpha-sig.figma.com/img/e02b/88f9/f35cb3fb69f2f16eaad3b201aa2c55dc?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mC5sSQiiM~8mnZaqPN0FE0kKa35TMwtcd7QPEkLZZjRQBFNBYGC5FwOUb3YQI6E9f~xteFrnHQhf9dI6~S6Btepy7KD4mn83Ja-0Io2ZJsCyjW9KG9eUraHMOJlt~p790vfkg2NCw5KEFYxRVvSHGHz11s8RxfFAla2tjA~nfLmHkbMzCjr8mMSrlW5AOxaGawsHE1B1sWR9kv6GXeZNUg8Gb7J02sLTG9JldO-ObYxdfZP2ue7nCyuh7WFTZ4g0ZYvNnBl7khBBwqBd6mUrH-yn4PH6NgTghZn3v4DriteacC~p~jppp3pBToQcgnzNdAihi~JHY6v70W9BHfFCYg__' // Reemplaza con tu URL
-
-                      ),
+                  backgroundImage: NetworkImage(cardConection),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
@@ -156,7 +154,7 @@ class _SocialCardState extends State<SocialCard> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.network(
-                'https://s3-alpha-sig.figma.com/img/cad7/d9fb/f7a893a626e803a9c0c6644e499ba574?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=odvfR24Zoiy8awIX2Eq3NKJMk0zL6T~cDF0VFT2~zdC3wYVBMSzsz4MtLMZPNMxOGDwSp9nUy8ogyjnNZMfcrtMy3zcLNrgdwdrHAS2q0XztM2seybc0s329zDcxGuM4OfruCF591BDcTz8Q6JNKuE9UCq7sqd26nQeVmvJLMAFv3rBLNtvpBT-U9VZufzVe2~DROdMvREBaLtjPiH0fErsB6ONlVyoHtfo7NHDwDEh3lqzKI~V~yPGPfAWj4RpFwz83fZcVPV3guw6hKexCelYpyJcxqd3Hw-S6WAJ5cZTesFkQKSVOX7Kx95sHLqcMFo4phh6FCNaYawAuCLVVcQ__',
+                publish,
                 fit: BoxFit.fill,
                 width: screensize.width,
                 height: screensize.height * 0.2,

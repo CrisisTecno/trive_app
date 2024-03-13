@@ -1,166 +1,189 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:trive_bysc/pages/Create%20Account/widgets/image_picker.widget.dart';
+import 'package:trive_bysc/pages/Profile/pages/EditProfile/edit_profile_1.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 import '../../../widgets/widgets.dart';
 import '../../Create Account/widgets/background_picker.widget.dart';
 import '../widgets/custom_buttom.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  late Future<DocumentSnapshot> _userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _userData = _fetchUserData();
+  }
+
+  Future<DocumentSnapshot> _fetchUserData() async {
+    String userId = '2km2fk2K5dV8oqHhutw4';
+    return FirebaseFirestore.instance.collection('Users').doc(userId).get();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: ClampingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: CustomAppBar(),
-          ),
-          Container(
-            height: 300.h,
-            child: Stack(
-              children: <Widget>[
-                UserBackgroundWidget(),
-                Positioned(left: 30.w, bottom: 0, child: UserProfileWidget()),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      child: FutureBuilder<DocumentSnapshot>(
+        future: _userData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (!snapshot.hasData) {
+            return Center(child: Text('No data found'));
+          }
+          // Aquí se obtienen los datos del usuario
+          final userData = snapshot.data!.data() as Map<String, dynamic>;
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: CustomAppBar(),
+              ),
+              Container(
+                height: 300.h,
+                child: Stack(
+                  children: <Widget>[
+                    UserBackgroundWidget(),
+                    Positioned(
+                        left: 30.w, bottom: 0, child: UserProfileWidget()),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Enrique Pablos',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 25.h)),
+                    // Aquí puedes utilizar los datos del usuario
+                    Text(
+                      userData['name'],
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 25.h),
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      userData['occupation'],
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18.h,
+                          color: primary),
+                    ),
                     SizedBox(
-                      width: 15.h,
+                      height: 10.h,
                     ),
-                    SvgPicture.asset(
-                      'public/assets/icons/verificated.svg',
-                      height: 38.h,
-                      width: 38.h,
-                      fit: BoxFit.cover,
-                    )
+                    Row(
+                      children: [
+                        CustomLabel(
+                          label: userData['followers'].length.toString() +
+                              ' seguidores',
+                          pathSvg: 'public/assets/icons/people.svg',
+                        ),
+                        Spacer(),
+                        CustomLabel(
+                          label: userData['followers'].length.toString() +
+                              ' conexiones',
+                          pathSvg: 'public/assets/icons/thunder_border.svg',
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text(userData['about'],
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18.h,
+                          color: Colors.black,
+                        )),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Wrap(
+                      spacing: 5.h,
+                      runSpacing: 1.h,
+                      children: List<Widget>.from(
+                          (userData['topics'] as List<dynamic>).map((topic) {
+                        return CustomTag(label: '#' + topic.toString());
+                      })),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    CustomButtonProfile(
+                      onClick: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => EditProfile1(
+                              userId: '2km2fk2K5dV8oqHhutw4',
+                            ),
+                          ),
+                        );
+                      },
+                      backgroundColor: Colors.white.withOpacity(1),
+                      title: 'Editar Perfil',
+                      titleColor: primary,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text('Puedo ayudarte en',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 24.h)),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text(userData['help'],
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18.h,
+                          color: Colors.black,
+                        )),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text('Mis conexiones',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 24.h)),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          CardConexion(),
+                          CardConexion(),
+                          CardConexion(),
+                          CardConexion(),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Text('Co founder de Trive ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18.h,
-                        color: primary)),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  children: [
-                    CustomLabel(
-                      label: '200K seguidores',
-                      pathSvg: 'public/assets/icons/people.svg',
-                    ),
-                    Spacer(),
-                    CustomLabel(
-                      label: '+500 conexiones',
-                      pathSvg: 'public/assets/icons/thunder_border.svg',
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Text(
-                    'Programador del Tecnológico de Mty, fundador de Scaleflow Technologies, una desarrolladora de software; y de Trive, esta gran app.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 18.h,
-                      color: Colors.black,
-                    )),
-                SizedBox(
-                  height: 15.h,
-                ),
-                Wrap(spacing: 5.h, runSpacing: 1.h, children: [
-                  CustomTag(
-                    label: '#Marketing ',
-                  ),
-                  CustomTag(
-                    label: '#Negocios ',
-                  ),
-                  CustomTag(
-                    label: '#Emprendimiento ',
-                  ),
-                  CustomTag(
-                    label: '#Startups ',
-                  ),
-                  CustomTag(
-                    label: '#Startups ',
-                  ),
-                  CustomTag(
-                    label: '#Startups ',
-                  )
-                ]),
-                SizedBox(
-                  height: 20.h,
-                ),
-                CustomButtonProfile(
-                  onClick: () {},
-                  backgroundColor: Colors.white.withOpacity(1),
-                  title: 'Editar Perfil',
-                  titleColor: primary,
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Text('Puedo ayudarte en',
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 24.h)),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Text(
-                    'Consejería para tu empresa de tecnología, conectarte con personas que te puedan ayudar y desarrollar tu idea.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 18.h,
-                      color: Colors.black,
-                    )),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Text('Mis conexiones',
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 24.h)),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      CardConexion(),
-                      CardConexion(),
-                      CardConexion(),
-                      CardConexion(),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

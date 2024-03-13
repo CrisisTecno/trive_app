@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
 
@@ -11,9 +13,13 @@ class DairyPage extends StatefulWidget {
   _DairyPageState createState() => _DairyPageState();
 }
 
+//aca pantallas para agendar la llamada
 class _DairyPageState extends State<DairyPage> {
+  DateTime? selectedDate;
+
   String dropdownValue = 'Público';
   String onlineStatus = 'Online';
+
   final GlobalKey<_DairyPublishButtonState> _dairyPublishButtonKey =
       GlobalKey();
   @override
@@ -52,11 +58,16 @@ class _DairyPageState extends State<DairyPage> {
 class DairyPublishButton extends StatefulWidget {
   final double width;
   final double height;
-
+  final Function(DateTime)? onDateSelected;
+  final Function(String)? onTimeSelected;
+  final Function(String)? onPurposeSelected;
   const DairyPublishButton({
     Key? key,
     required this.width,
     required this.height,
+    this.onDateSelected,
+    this.onTimeSelected,
+    this.onPurposeSelected,
   }) : super(key: key);
 
   @override
@@ -64,8 +75,12 @@ class DairyPublishButton extends StatefulWidget {
 }
 
 class _DairyPublishButtonState extends State<DairyPublishButton> {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   late PageController _pageController;
   int _selectedPageIndex = 0;
+  DateTime? _selectedDate;
+  String? _selectedTime;
+  String? purpose;
   @override
   void initState() {
     super.initState();
@@ -76,6 +91,57 @@ class _DairyPublishButtonState extends State<DairyPublishButton> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  Future<void> onPost() async {
+    try {
+      final Timestamp now = Timestamp.now();
+      DocumentReference docRef = await firestore.collection("calls").add({
+        "date": _selectedDate,
+        "hour": _selectedTime,
+        "createdAt": now,
+        "purpose": "MOTIVO",
+        "client": "02LCJYgfgUg5qNZF72X8FCdTcjO2",
+        "expert": "hUSX2j5WJSPdWP0c12nEU6zajKA3",
+        "status": "FOR_CONFIRMATION",
+      });
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Success'),
+            content: Text('User added successfully.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(RouteManager.homePage);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Failed to add user: $error'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void _handleOnPressed() {
@@ -90,31 +156,73 @@ class _DairyPublishButtonState extends State<DairyPublishButton> {
     }
   }
 
-  void _handlePublish() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          child: ContactCard(
-            profileImageUrl:
-                'https://s3-alpha-sig.figma.com/img/e02b/88f9/f35cb3fb69f2f16eaad3b201aa2c55dc?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mC5sSQiiM~8mnZaqPN0FE0kKa35TMwtcd7QPEkLZZjRQBFNBYGC5FwOUb3YQI6E9f~xteFrnHQhf9dI6~S6Btepy7KD4mn83Ja-0Io2ZJsCyjW9KG9eUraHMOJlt~p790vfkg2NCw5KEFYxRVvSHGHz11s8RxfFAla2tjA~nfLmHkbMzCjr8mMSrlW5AOxaGawsHE1B1sWR9kv6GXeZNUg8Gb7J02sLTG9JldO-ObYxdfZP2ue7nCyuh7WFTZ4g0ZYvNnBl7khBBwqBd6mUrH-yn4PH6NgTghZn3v4DriteacC~p~jppp3pBToQcgnzNdAihi~JHY6v70W9BHfFCYg__',
-            svgIconUrl: 'https://url_to_the_svg_icon',
-          ),
-        );
-      },
-    );
-    print('Publicar');
+  void _handlePublish() async {
+    print(_selectedDate);
+    print(_selectedTime);
+    print(purpose);
+    if (_selectedDate == null || _selectedTime == null) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error al Intenar Agendar la reunion'),
+            content: Text('Pruebe en seleccionar nuevamente la fecha y hora'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
+    try {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            child: ContactCard(
+              onChanged: onPost,
+              profileImageUrl: cardConection,
+              svgIconUrl: 'https://url_to_the_svg_icon',
+            ),
+          );
+        },
+      );
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Failed to upload post: $error'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void _onNavigationButtonTapped(int pageIndex) {
-   
-    _selectedPageIndex=pageIndex;
-     print(_selectedPageIndex);
+    _selectedPageIndex = pageIndex;
+    print(_selectedPageIndex);
     _pageController.animateToPage(
       pageIndex,
       duration: Duration(milliseconds: 300),
@@ -147,7 +255,7 @@ class _DairyPublishButtonState extends State<DairyPublishButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height,
+      height: 900.h,
       width: widget.width,
       child: Column(
         children: [
@@ -168,9 +276,35 @@ class _DairyPublishButtonState extends State<DairyPublishButton> {
                 });
               },
               children: [
-                DairyDatePart(),
-                DairyHourPart(),
-                DairyTimePartSelect(),
+                DairyDatePart(
+                  onDateSelected: (date) {
+                    setState(() {
+                      _selectedDate = date;
+                    });
+                    if (widget.onDateSelected != null) {
+                      widget.onDateSelected!(_selectedDate!);
+                    }
+                  },
+                ),
+                DairyHourPart(
+                  onTimeSelected: (time) {
+                    setState(() {
+                      _selectedTime = time;
+                    });
+                    if (widget.onTimeSelected != null) {
+                      widget.onTimeSelected!(_selectedTime!);
+                    }
+                  },
+                ),
+                DairyTimePartSelect(
+                  selectedDate: _selectedDate,
+                  selectedTime: _selectedTime,
+                  onPurposeSelected: (purpose) {
+                    if (widget.onPurposeSelected != null) {
+                      widget.onPurposeSelected!(purpose);
+                    }
+                  },
+                ),
               ],
             ),
           ),
@@ -179,51 +313,3 @@ class _DairyPublishButtonState extends State<DairyPublishButton> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-                          //menu desplegable
-                          // DropdownButton<String>(
-                          //   value: dropdownValue,
-                          //   onChanged: (String? newValue) {
-                          //     setState(() {
-                          //       dropdownValue = newValue!;
-                          //     });
-                          //   },
-                          //   items: <String>['Público', 'Privado', 'Oculto']
-                          //       .map<DropdownMenuItem<String>>((String value) {
-                          //     return DropdownMenuItem<String>(
-                          //       value: value,
-                          //       child: Text(value),
-                          //     );
-                          //   }).toList(),
-                          // ),
-              // DropdownButton<String>(
-              //   value: onlineStatus,
-              //   onChanged: (String? newValue) {
-              //     setState(() {
-              //       onlineStatus = newValue!;
-              //     });
-              //   },
-              //   items: <String>['Online', 'Presencial', 'Híbrido']
-              //       .map<DropdownMenuItem<String>>((String value) {
-              //     return DropdownMenuItem<String>(
-              //       value: value,
-              //       child: Text(value),
-              //     );
-              //   }).toList(),
-              // ),
-              // SizedBox(height: 8),
-              // TextFormField(
-              //   decoration: InputDecoration(
-              //     hintText: 'https://meet.google.com/cvq-qrii-rus',
-              //     suffixIcon: Icon(Icons.link),
-              //   ),
-              // ),

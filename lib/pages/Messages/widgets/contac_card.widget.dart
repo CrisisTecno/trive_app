@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trive_bysc/utils/Size/sizer.dart';
+import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/theme/colors/colors.dart';
 
 class ContactCard extends StatelessWidget {
   final String profileImageUrl;
+  final Function onChanged;
   final String svgIconUrl;
 
   const ContactCard({
     Key? key,
     required this.profileImageUrl,
     required this.svgIconUrl,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -32,7 +35,7 @@ class ContactCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(20.h)),
                   child: Image.network(
-                    'https://s3-alpha-sig.figma.com/img/a649/fb59/a7857b9f12efdbdc4e416e997233b537?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=SLIXZd1eaNCnXptBJ9pvb7nbsgj-HgwPYtMThsSN-C4QkYS~yaSJSVc7MgAqGuL2F93q3Rjuxa6HS0-KW6v0n8715cYH7wAVA~QPdxUq0eYA4EHJM-YiC~XCefz0xtezTkMCcloS4uNvlxZbhnY4s7R2VFta~4TsPQxA9pgLmrrp~XnbqAz0ro3JHBeQDg4aR1e~2Qa0vFlDjxjs8TqnRC~mp8nmFDnSSRipEKWlSiccnJHLVHKhCeyax-k70u-Qgpt4RUjGs-OpAhG3frX0HNZsrg9fyfa-Ncz40iEh7samOIJgqRECLhnNy75SkZr69vJhxSJ8CbFdZa~qLA8Psw__',
+                    backProfile,
                     height: 120.h,
                     width: 1000.w,
                     fit: BoxFit.cover,
@@ -54,7 +57,7 @@ class ContactCard extends StatelessWidget {
                           ),
                         ),
                         child: CircleAvatar(
-                          radius: 45.h, 
+                          radius: 45.h,
                           backgroundImage: NetworkImage(profileImageUrl),
                         ),
                       ),
@@ -83,11 +86,12 @@ class ContactCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(
+            height: 10.h,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.h),
             child: Column(
-
               children: [
                 Row(
                   children: [
@@ -127,7 +131,11 @@ class ContactCard extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (onChanged != null) {
+                      onChanged();
+                    }
+                  },
                   child: Text('ENVIAR 20'),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: primary,

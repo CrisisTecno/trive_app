@@ -3,10 +3,12 @@ import 'package:trive_bysc/utils/utils.dart';
 
 class TimeChip extends StatefulWidget {
   final String label;
+  final Function(bool isSelected)? onTap;
 
   const TimeChip({
     Key? key,
     required this.label,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -20,6 +22,10 @@ class _TimeChipState extends State<TimeChip> {
     setState(() {
       isSelected = !isSelected;
     });
+    // Llamar a la función de devolución de llamada si está disponible
+    if (widget.onTap != null) {
+      widget.onTap!(isSelected);
+    }
   }
 
   @override
@@ -29,13 +35,14 @@ class _TimeChipState extends State<TimeChip> {
       child: Container(
         width: 1000.w,
         height: 50.h,
-        margin: EdgeInsets.symmetric(vertical: 5.h,horizontal: 20.h),
+        margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 20.h),
         padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.h),
         decoration: BoxDecoration(
-          color: isSelected ? primary.withOpacity(0.1) : Colors.transparent, 
-          borderRadius: BorderRadius.circular(12.h), 
-          border:  isSelected ?Border.all( color: primary, width: 1.0):Border.all( color: Colors.black.withOpacity(0.1), width: 1.0), 
-          
+          color: isSelected ? primary.withOpacity(0.1) : Colors.transparent,
+          borderRadius: BorderRadius.circular(12.h),
+          border: isSelected
+              ? Border.all(color: primary, width: 1.0)
+              : Border.all(color: Colors.black.withOpacity(0.1), width: 1.0),
         ),
         child: Center(
           child: Text(

@@ -3,12 +3,25 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
 
-class CreateAccountScreen1 extends StatelessWidget {
+import 'create_account_2.page.dart';
+
+class CreateAccountScreen1 extends StatefulWidget {
   const CreateAccountScreen1({super.key});
 
   @override
+  State<CreateAccountScreen1> createState() => _CreateAccountScreen1State();
+}
+
+class _CreateAccountScreen1State extends State<CreateAccountScreen1> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _repeatPasswordController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     Size screensize = MediaQuery.of(context).size;
+    bool allFieldsFilled = _emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty &&
+        _repeatPasswordController.text.isNotEmpty;
 
     return SafeArea(
       child: Scaffold(
@@ -38,26 +51,32 @@ class CreateAccountScreen1 extends StatelessWidget {
                     TextLeyend(text: 'Correo'),
                     SizedBox(height: 10.h),
                     InputText(
-                        label: 'Correo',
-                        icon: Icon(Icons.email_outlined),
-                        borderColor: Colors.black.withOpacity(0.2),
-                        borderFocusedColor: primary),
+                      label: 'Correo',
+                      icon: Icon(Icons.email_outlined),
+                      borderColor: Colors.black.withOpacity(0.2),
+                      borderFocusedColor: primary,
+                      controllersc: _emailController,
+                    ),
                     SizedBox(height: 20.h),
                     TextLeyend(text: 'Contraseña'),
                     SizedBox(height: 10.h),
                     InputText(
-                        label: 'Contraseña',
-                        icon: Icon(Icons.remove_red_eye_outlined),
-                        borderColor: Colors.black.withOpacity(0.2),
-                        borderFocusedColor: primary),
+                      label: 'Contraseña',
+                      icon: Icon(Icons.remove_red_eye_outlined),
+                      borderColor: Colors.black.withOpacity(0.2),
+                      borderFocusedColor: primary,
+                      controllersc: _passwordController,
+                    ),
                     SizedBox(height: 20.h),
                     TextLeyend(text: 'Repetir Contraseña'),
                     SizedBox(height: 10.h),
                     InputText(
-                        label: ' Repetir Contraseña',
-                        icon: Icon(Icons.remove_red_eye_outlined),
-                        borderColor: Colors.black.withOpacity(0.2),
-                        borderFocusedColor: primary),
+                      label: ' Repetir Contraseña',
+                      icon: Icon(Icons.remove_red_eye_outlined),
+                      borderColor: Colors.black.withOpacity(0.2),
+                      borderFocusedColor: primary,
+                      controllersc: _repeatPasswordController,
+                    ),
                     SizedBox(height: 50),
                     ElevatedButton(
                       child: Text(
@@ -65,10 +84,28 @@ class CreateAccountScreen1 extends StatelessWidget {
                         style:
                             TextStyle(color: Color(0xffffffff), fontSize: 18.h),
                       ),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(RouteManager.createaccount2);
-                      },
+                      onPressed: allFieldsFilled
+                          ? _passwordController.text ==
+                                  _repeatPasswordController.text
+                              ? () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CreateAccountScreen2(
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        repeatPassword:
+                                            _repeatPasswordController.text,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              : () {
+                                  _showIncompleteFieldsDialogRepeat(context);
+                                }
+                          : () {
+                              _showIncompleteFieldsDialog(context);
+                            },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primary,
                         shape: RoundedRectangleBorder(
@@ -133,6 +170,56 @@ class CreateAccountScreen1 extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _showIncompleteFieldsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Campos Incompletos'),
+          content:
+              Text('Por favor, complete todos los campos antes de continuar.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showIncompleteFieldsDialogRepeat(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Los campos no coinciden'),
+          content:
+              Text('Por favor, verifique los campos y vuelva a intentarlo'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _repeatPasswordController.dispose();
+    super.dispose();
   }
 }
 
