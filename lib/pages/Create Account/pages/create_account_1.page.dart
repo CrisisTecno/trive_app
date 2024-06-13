@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:trive_bysc/pages/Create%20Account/pages/alert.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
 
@@ -16,6 +17,10 @@ class _CreateAccountScreen1State extends State<CreateAccountScreen1> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _repeatPasswordController = TextEditingController();
+  final passwordController1 = TextEditingController();
+  bool _isPasswordVisible1 = false;
+  final passwordController2 = TextEditingController();
+  bool _isPasswordVisible2 = false;
   @override
   Widget build(BuildContext context) {
     Size screensize = MediaQuery.of(context).size;
@@ -60,22 +65,88 @@ class _CreateAccountScreen1State extends State<CreateAccountScreen1> {
                     SizedBox(height: 20.h),
                     TextLeyend(text: 'Contraseña'),
                     SizedBox(height: 10.h),
-                    InputText(
-                      label: 'Contraseña',
-                      icon: Icon(Icons.remove_red_eye_outlined),
-                      borderColor: Colors.black.withOpacity(0.2),
-                      borderFocusedColor: primary,
-                      controllersc: _passwordController,
+                    TextField(
+                      controller: _passwordController,
+                      obscureText: !_isPasswordVisible1,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        labelText: 'Contraseña',
+                        focusedBorder: OutlineInputBorder(
+                          gapPadding: 10.w,
+                          borderRadius: BorderRadius.all(Radius.circular(20.w)),
+                          borderSide: BorderSide(
+                            color: primary, // Color del borde
+                            width: 2, // Ancho del borde
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20.w)),
+                          borderSide: BorderSide(
+                            color: const Color.fromARGB(255, 194, 192, 192)
+                                .withOpacity(0.1), // Color del borde
+                            width: 1, // Ancho del borde
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20.h),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible1
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible1 = !_isPasswordVisible1;
+                            });
+                          },
+                        ),
+                      ),
                     ),
+                    // InputText(
+                    //   label: 'Contraseña',
+                    //   icon: Icon(Icons.remove_red_eye_outlined),
+                    //   borderColor: Colors.black.withOpacity(0.2),
+                    //   borderFocusedColor: primary,
+                    //   controllersc: _passwordController,
+                    // ),
                     SizedBox(height: 20.h),
                     TextLeyend(text: 'Repetir Contraseña'),
                     SizedBox(height: 10.h),
-                    InputText(
-                      label: ' Repetir Contraseña',
-                      icon: Icon(Icons.remove_red_eye_outlined),
-                      borderColor: Colors.black.withOpacity(0.2),
-                      borderFocusedColor: primary,
-                      controllersc: _repeatPasswordController,
+                    TextField(
+                      controller: _repeatPasswordController,
+                      obscureText: !_isPasswordVisible2,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        labelText: 'Repite la Contraseña',
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20.w)),
+                          borderSide: BorderSide(
+                            color: primary, // Color del borde
+                            width: 2, // Ancho del borde
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20.w)),
+                          borderSide: BorderSide(
+                            color: const Color.fromARGB(255, 194, 192, 192)
+                                .withOpacity(0.1), // Color del borde
+                            width: 1, // Ancho del borde
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20.h),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible2
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible2 = !_isPasswordVisible2;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                     SizedBox(height: 50),
                     ElevatedButton(
@@ -104,7 +175,7 @@ class _CreateAccountScreen1State extends State<CreateAccountScreen1> {
                                   _showIncompleteFieldsDialogRepeat(context);
                                 }
                           : () {
-                              _showIncompleteFieldsDialog(context);
+                              _showIncompleteFieldsDialogRepeat(context);
                             },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primary,
@@ -139,26 +210,10 @@ class _CreateAccountScreen1State extends State<CreateAccountScreen1> {
                     ),
                     SizedBox(height: 30.h),
                     SocialSignInButton(
-                      text: 'Iniciar sesión con Facebook',
-                      iconPath: 'public/assets/icons/facebook.svg',
-                      color: Colors.white,
-                      titleColor: Colors.black,
-                      onPressed: () {},
-                    ),
-                    SizedBox(height: 15),
-                    SocialSignInButton(
                       text: 'Iniciar sesión con Google',
                       iconPath: 'public/assets/icons/google.svg',
                       color: Colors.white,
                       titleColor: Colors.black,
-                      onPressed: () {},
-                    ),
-                    SizedBox(height: 15),
-                    SocialSignInButton(
-                      text: 'Inicia sesión con Apple',
-                      iconPath: 'public/assets/icons/apple.svg',
-                      color: Colors.black,
-                      titleColor: Colors.white,
                       onPressed: () {},
                     ),
                     SizedBox(height: 60.h),
@@ -177,15 +232,39 @@ class _CreateAccountScreen1State extends State<CreateAccountScreen1> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Campos Incompletos'),
-          content:
-              Text('Por favor, complete todos los campos antes de continuar.'),
+          title: Center(
+            child: Text(
+              'Campos Incompletos',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text(
+            'Por favor, complete todos los campos antes de continuar.',
+            style: TextStyle(
+              fontSize: 15,
+            ),
+            textAlign: TextAlign.center,
+          ),
           actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                  decoration: BoxDecoration(
+                      color: primary,
+                      border: Border.all(width: 2, color: primary),
+                      borderRadius: BorderRadius.all(Radius.circular(12.w))),
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
             ),
           ],
         );
@@ -198,15 +277,39 @@ class _CreateAccountScreen1State extends State<CreateAccountScreen1> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Los campos no coinciden'),
-          content:
-              Text('Por favor, verifique los campos y vuelva a intentarlo'),
+          title: Center(
+            child: Text(
+              'Los campos no coinciden',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text(
+            'Por favor, verifique los campos y vuelva a intentarlo',
+            style: TextStyle(
+              fontSize: 15,
+            ),
+            textAlign: TextAlign.center,
+          ),
           actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                  decoration: BoxDecoration(
+                      color: primary,
+                      border: Border.all(width: 2, color: primary),
+                      borderRadius: BorderRadius.all(Radius.circular(12.w))),
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
             ),
           ],
         );

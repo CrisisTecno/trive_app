@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,40 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDGYMjhogjMWZ4CDFG6TaX_tToBFUgc4z8',
-    appId: '1:723894435181:web:365b15a30a822a7156ae64',
-    messagingSenderId: '723894435181',
-    projectId: 'trive-4e1b7',
-    authDomain: 'trive-4e1b7.firebaseapp.com',
-    storageBucket: 'trive-4e1b7.appspot.com',
-    measurementId: 'G-EBYSWY2K3Z',
+    apiKey: 'AIzaSyAVqocC_DD9kBdW-41ccOFc4B51eOw4ofU',
+    appId: '1:570301401734:web:b788f9cc9b781b26f21f07',
+    messagingSenderId: '570301401734',
+    projectId: 'trive-ntp',
+    authDomain: 'trive-ntp.firebaseapp.com',
+    storageBucket: 'trive-ntp.appspot.com',
+    measurementId: 'G-JD8QSC610P',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBCiGQDPN93TAPHjBJREQ4X6TYk3CV6Z0E',
-    appId: '1:723894435181:android:d98a42738460c7a556ae64',
-    messagingSenderId: '723894435181',
-    projectId: 'trive-4e1b7',
-    storageBucket: 'trive-4e1b7.appspot.com',
+    apiKey: 'AIzaSyDi9OI3PpmGRvfntcE3urdtbjEIOrgPeZU',
+    appId: '1:570301401734:android:bebcace6cfaa5757f21f07',
+    messagingSenderId: '570301401734',
+    projectId: 'trive-ntp',
+    storageBucket: 'trive-ntp.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCRk2rdLmNT23h03NglH0ZUtk3URSX-MUM',
-    appId: '1:723894435181:ios:7588c8e2320823a656ae64',
-    messagingSenderId: '723894435181',
-    projectId: 'trive-4e1b7',
-    storageBucket: 'trive-4e1b7.appspot.com',
-    iosClientId: '723894435181-kn4jp2nqbmu6ivrj800j8g161go1jtmb.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAnR-CbW3cKJBWYmpECztqF8ySs3n3u-54',
+    appId: '1:570301401734:ios:0839135153b0709cf21f07',
+    messagingSenderId: '570301401734',
+    projectId: 'trive-ntp',
+    storageBucket: 'trive-ntp.appspot.com',
     iosBundleId: 'com.example.triveBysc',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCRk2rdLmNT23h03NglH0ZUtk3URSX-MUM',
-    appId: '1:723894435181:ios:63d751ac21b5798456ae64',
-    messagingSenderId: '723894435181',
-    projectId: 'trive-4e1b7',
-    storageBucket: 'trive-4e1b7.appspot.com',
-    iosClientId: '723894435181-4slo7k1o7did9gavb6den16otc2cqan2.apps.googleusercontent.com',
-    iosBundleId: 'com.example.triveBysc.RunnerTests',
+    apiKey: 'AIzaSyAnR-CbW3cKJBWYmpECztqF8ySs3n3u-54',
+    appId: '1:570301401734:ios:0839135153b0709cf21f07',
+    messagingSenderId: '570301401734',
+    projectId: 'trive-ntp',
+    storageBucket: 'trive-ntp.appspot.com',
+    iosBundleId: 'com.example.triveBysc',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAVqocC_DD9kBdW-41ccOFc4B51eOw4ofU',
+    appId: '1:570301401734:web:458f9efbf2238afbf21f07',
+    messagingSenderId: '570301401734',
+    projectId: 'trive-ntp',
+    authDomain: 'trive-ntp.firebaseapp.com',
+    storageBucket: 'trive-ntp.appspot.com',
+    measurementId: 'G-X61TQVSYMM',
+  );
+
 }

@@ -45,12 +45,19 @@ class CardConexion extends StatelessWidget {
                           SizedBox(
                             height: 100.h,
                             width: 100.h,
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                cardConection,
-                                scale: 100.h,
-                              ),
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50.w)),
+                              child: FadeInImage.assetNetwork(
+                                  placeholder: 'public/assets/loadings/lo3.gif',
+                                  image: cardConection),
                             ),
+                            // child: CircleAvatar(
+                            //   backgroundImage: NetworkImage(
+                            //     cardConection,
+                            //     scale: 100.h,
+                            //   ),
+                            // ),
                           ),
                           Spacer(),
                         ],

@@ -1,187 +1,26 @@
 {
   "project_info": {
-    "project_number": "723894435181",
-    "project_id": "trive-4e1b7",
-    "storage_bucket": "trive-4e1b7.appspot.com"
+    "project_number": "570301401734",
+    "project_id": "trive-ntp",
+    "storage_bucket": "trive-ntp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:723894435181:android:e55cb23788f0133356ae64",
-        "android_client_info": {
-          "package_name": "com.example.trive"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "723894435181-jmruds5vkeab7c9roaa3gv2fsp6fv0lm.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBCiGQDPN93TAPHjBJREQ4X6TYk3CV6Z0E"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "723894435181-8im5v25vrqjvm0lfs6270ni8s33poe57.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "723894435181-epjec9hh7mmaitu6up6str0sknqbtjef.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "n"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:723894435181:android:d98a42738460c7a556ae64",
+        "mobilesdk_app_id": "1:570301401734:android:bebcace6cfaa5757f21f07",
         "android_client_info": {
           "package_name": "com.example.trive_bysc"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "723894435181-jmruds5vkeab7c9roaa3gv2fsp6fv0lm.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBCiGQDPN93TAPHjBJREQ4X6TYk3CV6Z0E"
+          "current_key": "AIzaSyDi9OI3PpmGRvfntcE3urdtbjEIOrgPeZU"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "723894435181-8im5v25vrqjvm0lfs6270ni8s33poe57.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "723894435181-epjec9hh7mmaitu6up6str0sknqbtjef.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "n"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:723894435181:android:c803edf3069a992956ae64",
-        "android_client_info": {
-          "package_name": "com.scaleflow.trive"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "723894435181-jmruds5vkeab7c9roaa3gv2fsp6fv0lm.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBCiGQDPN93TAPHjBJREQ4X6TYk3CV6Z0E"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "723894435181-8im5v25vrqjvm0lfs6270ni8s33poe57.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "723894435181-epjec9hh7mmaitu6up6str0sknqbtjef.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "n"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:723894435181:android:3eda9446affe785656ae64",
-        "android_client_info": {
-          "package_name": "com.scaleflow.trive_app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "723894435181-jmruds5vkeab7c9roaa3gv2fsp6fv0lm.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBCiGQDPN93TAPHjBJREQ4X6TYk3CV6Z0E"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "723894435181-8im5v25vrqjvm0lfs6270ni8s33poe57.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "723894435181-epjec9hh7mmaitu6up6str0sknqbtjef.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "n"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:723894435181:android:98a2c687ee166e7656ae64",
-        "android_client_info": {
-          "package_name": "com.trive_bysc"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "723894435181-jmruds5vkeab7c9roaa3gv2fsp6fv0lm.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBCiGQDPN93TAPHjBJREQ4X6TYk3CV6Z0E"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "723894435181-8im5v25vrqjvm0lfs6270ni8s33poe57.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "723894435181-epjec9hh7mmaitu6up6str0sknqbtjef.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "n"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

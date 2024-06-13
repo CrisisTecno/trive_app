@@ -75,8 +75,10 @@ class _SocialCardState extends State<SocialCard> {
             child: Row(
               children: [
                 CircleAvatar(
-                  minRadius: 30.h,
-                  backgroundImage: NetworkImage(cardConection),
+                  maxRadius: 10.w,
+                  child: FadeInImage.assetNetwork(
+                      placeholder: 'public/assets/loadings/lo3.gif',
+                      image: cardConection),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
@@ -153,9 +155,18 @@ class _SocialCardState extends State<SocialCard> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                publish,
-                fit: BoxFit.fill,
+              // child: Image.network(
+              //   publish,
+              //   fit: BoxFit.fill,
+              //   width: screensize.width,
+              //   height: screensize.height * 0.2,
+              // ),
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, border: Border.all(width: 2)),
+                child: FadeInImage.assetNetwork(
+                    placeholder: 'public/assets/loadings/lo3.gif',
+                    image: publish),
                 width: screensize.width,
                 height: screensize.height * 0.2,
               ),

@@ -127,6 +127,7 @@
 //     );
 //   }
 // }
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -164,6 +165,20 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
         password: passwordController.text.trim(),
       );
       print('Usuario inició sesión: ${userCredential.user}');
+
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .where('email', isEqualTo: emailController.text.trim())
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        print("el usuario existe");
+        for (var doc in querySnapshot.docs) {
+          print(doc.data());
+        }
+      } else {
+        print("el usuario no existe");
+      }
+      ;
       Navigator.of(context).pushNamed(RouteManager.homePage);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -176,7 +191,7 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
         });
       } else {
         setState(() {
-          _errorMessage = 'Ocurrió un error al iniciar sesión.';
+          _errorMessage = 'Ocurrio un error, Credenciales Invalidas';
         });
       }
     }
@@ -320,14 +335,14 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
                       ]),
                     ),
                     SizedBox(height: 30.h),
-                    SocialSignInButton(
-                      text: 'Iniciar sesión con Facebook',
-                      iconPath: 'public/assets/icons/facebook.svg',
-                      color: Colors.white,
-                      titleColor: Colors.black,
-                      onPressed: () {},
-                    ),
-                    SizedBox(height: 15),
+                    // SocialSignInButton(
+                    //   text: 'Iniciar sesión con Facebook',
+                    //   iconPath: 'public/assets/icons/facebook.svg',
+                    //   color: Colors.white,
+                    //   titleColor: Colors.black,
+                    //   onPressed: () {},
+                    // ),
+                    // SizedBox(height: 15),
                     SocialSignInButton(
                       text: 'Iniciar sesión con Google',
                       iconPath: 'public/assets/icons/google.svg',
@@ -335,14 +350,14 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
                       titleColor: Colors.black,
                       onPressed: () {},
                     ),
-                    SizedBox(height: 15),
-                    SocialSignInButton(
-                      text: 'Inicia sesión con Apple',
-                      iconPath: 'public/assets/icons/apple.svg',
-                      color: Colors.black,
-                      titleColor: Colors.white,
-                      onPressed: () {},
-                    ),
+                    // SizedBox(height: 15),
+                    // SocialSignInButton(
+                    //   text: 'Inicia sesión con Apple',
+                    //   iconPath: 'public/assets/icons/apple.svg',
+                    //   color: Colors.black,
+                    //   titleColor: Colors.white,
+                    //   onPressed: () {},
+                    // ),
                     SizedBox(height: 60.h),
                   ],
                 ),

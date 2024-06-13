@@ -173,7 +173,7 @@ class _ReusableChipsState extends State<ReusableChips> {
                   widget.onSelectedLabelsChanged(selectedLabels);
                 });
               },
-              backgroundColor: Color(0xffF6F6F6),
+              backgroundColor: Color.fromARGB(255, 247, 244, 244),
               selectedColor: primary.withOpacity(0.1),
               showCheckmark: false,
               side: BorderSide(

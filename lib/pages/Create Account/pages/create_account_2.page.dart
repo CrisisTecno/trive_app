@@ -1,136 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:trive_bysc/utils/utils.dart';
-// import 'package:trive_bysc/widgets/widgets.dart';
-// import '../widgets/widgets.dart';
-
-// class CreateAccountScreen2 extends StatefulWidget {
-//   @override
-//   State<CreateAccountScreen2> createState() => _CreateAccountScreen2State();
-// }
-
-// class _CreateAccountScreen2State extends State<CreateAccountScreen2> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         body: SingleChildScrollView(
-//           child: Column(
-//             children: <Widget>[
-//               SizedBox(height: 20.h),
-//               Padding(
-//                   padding: EdgeInsets.symmetric(horizontal: 15.w),
-//                   child: DynamicContainerRow(
-//                     numberOfContainers: 1,
-//                     color: primary,
-//                     height: 5.h,
-//                     spacing: 10,
-//                     containerWidthFactor:
-//                        0.16,  // Esto es un ejemplo, representa 1/5 del ancho de la pantalla
-//                   )),
-//               SizedBox(height: 15.h),
-//               Text(
-//                 'Tu Perfil',
-//                 style: TextStyle(
-//                     fontSize: 25.h,
-//                     fontWeight: FontWeight.bold,
-//                     color: primary),
-//                 textAlign: TextAlign.center,
-//               ),
-//               SizedBox(height: 15.h),
-//               Container(
-//                 height: 300.h,
-//                 child: Stack(
-//                   children: <Widget>[
-//                     UserBackgroundWidget(),
-//                     Positioned(
-//                         left: 30.w, bottom: 0, child: UserProfileWidget()),
-//                   ],
-//                 ),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.all(16.0),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: <Widget>[
-//                     TextOfInput(
-//                       label: 'Nombre',
-//                     ),
-//                     SizedBox(height: 10.h),
-//                     InputText(
-//                         label: 'Steve Jobs',
-//                         borderColor: Colors.black.withOpacity(0.2),
-//                         borderFocusedColor: primary),
-//                     SizedBox(height: 10.h),
-//                     TextOfInput(
-//                       label: 'Ocupacion',
-//                     ),
-//                     SizedBox(height: 10.h),
-//                     InputText(
-//                         label: 'Ceo de Apple',
-//                         borderColor: Colors.black.withOpacity(0.2),
-//                         borderFocusedColor: primary),
-//                     SizedBox(height: 10.h),
-//                     TextOfInput(
-//                       label: 'Acerca de ti',
-//                     ),
-//                     SizedBox(height: 10.h),
-//                     InputText(
-//                         label: 'Fundador de una empresa de dispositivos el...',
-//                         borderColor: Colors.black.withOpacity(0.2),
-//                         borderFocusedColor: primary),
-//                     SizedBox(height: 10.h),
-//                     TextOfInput(
-//                       label: '¿Cómo puedes ayudar?',
-//                     ),
-//                     SizedBox(height: 10.h),
-//                     InputText(
-//                         label: 'Te puedo ayudar a armar un modelo de neg...',
-//                         borderColor: Colors.black.withOpacity(0.2),
-//                         borderFocusedColor: primary),
-//                     SizedBox(height: 30.h),
-//                     CustomButton(
-//                       onClick: () {
-//                         Navigator.of(context)
-//                             .pushNamed(RouteManager.createaccount3);
-//                       },
-//                       title: 'Continuar',
-//                       backgroundColor: primary,
-//                       titleColor: Colors.white,
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class TextOfInput extends StatelessWidget {
-//   final String label;
-//   const TextOfInput({
-//     super.key,
-//     required this.label,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.only(left: 15),
-//       child: Text(
-//         label,
-//         textAlign: TextAlign.start,
-//         style: TextStyle(
-//           fontSize: 20.h,
-//           fontWeight: FontWeight.bold,
-//           color: primary,
-//         ),
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
@@ -183,7 +50,7 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2> {
                   color: primary,
                   height: 5.h,
                   spacing: 10,
-                  containerWidthFactor: 0.16,
+                  containerWidthFactor: 0.45,
                 ),
               ),
               SizedBox(height: 15.h),
@@ -289,15 +156,39 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Campos Incompletos'),
-          content:
-              Text('Por favor, complete todos los campos antes de continuar.'),
+          title: Center(
+            child: Text(
+              'Campos Incompletos',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text(
+            'Por favor, complete todos los campos antes de continuar.',
+            style: TextStyle(
+              fontSize: 15,
+            ),
+            textAlign: TextAlign.center,
+          ),
           actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                  decoration: BoxDecoration(
+                      color: primary,
+                      border: Border.all(width: 2, color: primary),
+                      borderRadius: BorderRadius.all(Radius.circular(12.w))),
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
             ),
           ],
         );

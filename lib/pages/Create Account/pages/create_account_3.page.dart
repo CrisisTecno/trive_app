@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:trive_bysc/pages/Create%20Account/pages/create_account_4.page.dart';
 import 'package:trive_bysc/utils/utils.dart';
@@ -29,6 +31,126 @@ class CreateAccountScreen3 extends StatefulWidget {
 
 class _CreateAccountScreen3State extends State<CreateAccountScreen3> {
   List<String> selectedChips = [];
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Future<void> _uploadPost() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: widget.email, password: widget.password);
+      final Timestamp timestamp = Timestamp.now();
+      DocumentReference docRef = await firestore.collection("Users").add({
+        'email': widget.email,
+        'password': widget.password,
+        'name': widget.name,
+        'occupation': widget.occupation,
+        'about': widget.about,
+        'help': widget.help,
+        'topics': selectedChips,
+        'created': timestamp,
+        'mainImage': "",
+        'secondImage': "",
+        'phone': ""
+      });
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                'Todo Salio Genial',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
+            content: Text(
+              'Se a creado la cuenta correctamente, disfruta de trive',
+              style: TextStyle(
+                fontSize: 15,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            actions: <Widget>[
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RouteManager.homePage);
+                  },
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                    decoration: BoxDecoration(
+                        color: primary,
+                        border: Border.all(width: 2, color: primary),
+                        borderRadius: BorderRadius.all(Radius.circular(12.w))),
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+
+          // return AlertDialog(
+          //   title: Text('Success'),
+          //   content: Text('User added successfully.'),
+          //   actions: [
+          //     TextButton(
+          //       onPressed: () {
+          //         Navigator.of(context).pushNamed(RouteManager.homePage);
+          //       },
+          //       child: Text('OK'),
+          //     ),
+          //   ],
+          // );
+        },
+      );
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                'Algo Salio Mal',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
+            content: Text(
+              'Ocurrio un error de creacion de cuenta, verifica que no tengas una cuenta existente ya.',
+              style: TextStyle(
+                fontSize: 15,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            actions: <Widget>[
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                    decoration: BoxDecoration(
+                        color: primary,
+                        border: Border.all(width: 2, color: primary),
+                        borderRadius: BorderRadius.all(Radius.circular(12.w))),
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +170,7 @@ class _CreateAccountScreen3State extends State<CreateAccountScreen3> {
                     height: 5.h,
                     spacing: 10,
                     containerWidthFactor:
-                        0.16, // Esto es un ejemplo, representa 1/5 del ancho de la pantalla
+                        0.45, // Esto es un ejemplo, representa 1/5 del ancho de la pantalla
                   )),
               SizedBox(height: 35.h),
               Row(
@@ -143,25 +265,7 @@ class _CreateAccountScreen3State extends State<CreateAccountScreen3> {
                 children: [
                   Spacer(),
                   CustomButton(
-                    onClick: allFieldsFilled
-                        ? () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => CreateAccountScreen4(
-                                  email: widget.email,
-                                  password: widget.password,
-                                  name: widget.name,
-                                  occupation: widget.occupation,
-                                  about: widget.about,
-                                  help: widget.help,
-                                  topics: selectedChips,
-                                ),
-                              ),
-                            );
-                          }
-                        : () {
-                            _showIncompleteFieldsDialog(context);
-                          },
+                    onClick: _uploadPost,
                     title: 'Continuar',
                     backgroundColor: primary,
                     titleColor: Colors.white,
