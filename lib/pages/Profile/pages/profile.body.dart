@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:trive_bysc/pages/Create%20Account/widgets/image_picker.widget.dart';
 import 'package:trive_bysc/pages/Profile/pages/EditProfile/edit_profile_1.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 import '../../../widgets/widgets.dart';
@@ -22,11 +24,19 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _userData = _fetchUserData();
   }
 
   Future<DocumentSnapshot> _fetchUserData() async {
-    String userId = 'FHy2Nc44HhYwTes9oTGf';
+    final userProvider = Provider.of<TriveProvider>(context);
+    final userId = userProvider.userId;
+    print(userId);
+    print("se logro");
     return FirebaseFirestore.instance.collection('Users').doc(userId).get();
   }
 

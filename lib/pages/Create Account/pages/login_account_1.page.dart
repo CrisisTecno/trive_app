@@ -131,6 +131,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
 
@@ -144,8 +146,10 @@ class LoginAccountScreen1 extends StatefulWidget {
 class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
   bool _isPasswordVisible = false;
   String _errorMessage = '';
+
   @override
   void dispose() {
     emailController.dispose();
@@ -172,9 +176,10 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
           .get();
       if (querySnapshot.docs.isNotEmpty) {
         print("el usuario existe");
-        for (var doc in querySnapshot.docs) {
-          print(doc.data());
-        }
+        final userProvider = Provider.of<TriveProvider>(context, listen: false);
+        var doc = querySnapshot.docs.first;
+        userProvider.setUserData(
+            doc.id, querySnapshot.docs.first.data() as Map<String, dynamic>);
       } else {
         print("el usuario no existe");
       }

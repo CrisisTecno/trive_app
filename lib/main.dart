@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'pages/pages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'utils/utils.dart';
@@ -17,7 +19,9 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
 
-  runApp(MyApp());
+  runApp(MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => TriveProvider())],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

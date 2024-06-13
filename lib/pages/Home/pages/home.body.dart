@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
@@ -12,6 +14,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final triveProvider = Provider.of<TriveProvider>(context);
+
     return SingleChildScrollView(
       physics: ClampingScrollPhysics(),
       child: Padding(
