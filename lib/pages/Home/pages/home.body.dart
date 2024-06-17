@@ -118,17 +118,17 @@ class Home extends StatelessWidget {
 
             Publications(),
 
-            SocialCard(
-              name: 'Crisis',
-              ocupation: 'Crisis',
-              content: "xaxa",
-              imageProfile:
-                  "https://firebasestorage.googleapis.com/v0/b/trive-ntp.appspot.com/o/pictures%2Fp3.jpg?alt=media&token=27a456e6-c1ab-4e8a-bf2a-e05d70bcdbe6",
-              imagesUrl: [
-                "https://firebasestorage.googleapis.com/v0/b/trive-ntp.appspot.com/o/pictures%2Fp3.jpg?alt=media&token=27a456e6-c1ab-4e8a-bf2a-e05d70bcdbe6"
-              ],
-              topics: ["Finanzas"],
-            ),
+            // SocialCard(
+            //   name: 'Crisis',
+            //   ocupation: 'Crisis',
+            //   content: "xaxa",
+            //   imageProfile:
+            //       "https://firebasestorage.googleapis.com/v0/b/trive-ntp.appspot.com/o/pictures%2Fp3.jpg?alt=media&token=27a456e6-c1ab-4e8a-bf2a-e05d70bcdbe6",
+            //   imagesUrl: [
+            //     "https://firebasestorage.googleapis.com/v0/b/trive-ntp.appspot.com/o/pictures%2Fp3.jpg?alt=media&token=27a456e6-c1ab-4e8a-bf2a-e05d70bcdbe6"
+            //   ],
+            //   topics: ["Finanzas"],
+            // ),
             // SocialCard(),
           ],
         ),

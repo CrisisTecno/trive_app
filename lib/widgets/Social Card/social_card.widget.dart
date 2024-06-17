@@ -72,25 +72,25 @@ class _SocialCardState extends State<SocialCard> {
                 ),
                 Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isFavorite = !isFavorite;
-                        });
-                      },
-                      child: Container(
-                        height: 40.h,
-                        width: 40.h,
-                        padding: EdgeInsets.all(5.h),
-                        child: SvgPicture.asset(isFavorite
-                            ? 'public/assets/icons/start_green.svg'
-                            : 'public/assets/icons/start_grey.svg'), // Ajusta la ruta según tu proyecto
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.all(Radius.circular(20.h)),
-                        ),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     setState(() {
+                    //       isFavorite = !isFavorite;
+                    //     });
+                    //   },
+                    //   child: Container(
+                    //     height: 40.h,
+                    //     width: 40.h,
+                    //     padding: EdgeInsets.all(5.h),
+                    //     child: SvgPicture.asset(isFavorite
+                    //         ? 'public/assets/icons/start_green.svg'
+                    //         : 'public/assets/icons/start_grey.svg'), // Ajusta la ruta según tu proyecto
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.transparent,
+                    //       borderRadius: BorderRadius.all(Radius.circular(20.h)),
+                    //     ),
+                    //   ),
+                    // ),
                     GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -141,13 +141,16 @@ class _SocialCardState extends State<SocialCard> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, border: Border.all(width: 2)),
-                child: FadeInImage.assetNetwork(
-                    placeholder: 'public/assets/loadings/lo3.gif',
-                    image: widget.imagesUrl[0]),
+                decoration: BoxDecoration(),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: FadeInImage.assetNetwork(
+                      fit: BoxFit.fill,
+                      placeholder: 'public/assets/loadings/lo3.gif',
+                      image: widget.imagesUrl[0]),
+                ),
                 width: screensize.width,
-                height: screensize.height * 0.2,
+                height: screensize.height * 0.25,
               ),
             ),
           ),
