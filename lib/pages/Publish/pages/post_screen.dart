@@ -70,6 +70,48 @@ class _PostScreenState extends State<PostScreen> {
       "topics": topics
     });
     print(docRef);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Center(
+            child: Text(
+              'Todo Salio Genial',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+          ),
+          content: Text(
+            'Se publico sin problemas, continua disfrutando de trive',
+            style: TextStyle(
+              fontSize: 15,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(RouteManager.homePage);
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                  decoration: BoxDecoration(
+                      color: primary,
+                      border: Border.all(width: 2, color: primary),
+                      borderRadius: BorderRadius.all(Radius.circular(12.w))),
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
 
     return downloadUrls;
   }
@@ -82,6 +124,11 @@ class _PostScreenState extends State<PostScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final triveProvider = Provider.of<TriveProvider>(context, listen: false);
+    String? nombre = triveProvider.userData?['name'];
+    String? ocupation = triveProvider.userData?['occupation'];
+    String? imageUrl = triveProvider.userData?['mainImage'];
+
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -94,9 +141,16 @@ class _PostScreenState extends State<PostScreen> {
                   SizedBox(
                     height: 80.h,
                     width: 80.h,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        'https://scontent.flpb2-2.fna.fbcdn.net/v/t39.30808-6/442495944_7593308070761015_6087254766999990283_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Bk5mPOEGpAIQ7kNvgGjT3-s&_nc_ht=scontent.flpb2-2.fna&oh=00_AYBxa0upjGwMlXC9mjFQ9Iu4bEJU3X8uci9XS1NaS5lRQA&oe=66670FFB',
+                    child: ClipRRect(
+                      borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(50.h)),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'public/assets/loadings/lo3.gif',
+                        image: imageUrl!,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                              'public/assets/images/background_1.png'); // Ruta de la imagen por defecto
+                        },
                       ),
                     ),
                   ),
@@ -104,16 +158,21 @@ class _PostScreenState extends State<PostScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Steve Trabajos',
+                      Text(nombre!,
                           style: TextStyle(
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.black,
                               fontSize: 16,
                               fontWeight: FontWeight.w600)),
+                      Text(ocupation!,
+                          style: TextStyle(
+                              color: primary,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600)),
                       SizedBox(
-                        height: 15.h,
+                        height: 5.h,
                       ),
                       ChipOptionPublishPrivacity2(
-                        label: 'Publicar',
+                        label: 'Publico',
                       ),
                     ],
                   ),
@@ -157,21 +216,24 @@ class _PostScreenState extends State<PostScreen> {
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
             ),
-            ReusableChips(
-              chipLabels: [
-                'Marketing',
-                'Finanzas',
-                'Ventas',
-                'Publicidad',
-                'Liderazgo',
-                'Bienestar'
-              ],
-              onSelectedLabelsChanged: (selectedLabels) {
-                setState(() {
-                  selectedChips.addAll(selectedLabels);
-                  selectedChips = selectedChips.toSet().toList();
-                });
-              },
+            Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: ReusableChips(
+                chipLabels: [
+                  'Marketing',
+                  'Finanzas',
+                  'Ventas',
+                  'Publicidad',
+                  'Liderazgo',
+                  'Bienestar'
+                ],
+                onSelectedLabelsChanged: (selectedLabels) {
+                  setState(() {
+                    selectedChips.addAll(selectedLabels);
+                    selectedChips = selectedChips.toSet().toList();
+                  });
+                },
+              ),
             ),
             Spacer(
               flex: 1,

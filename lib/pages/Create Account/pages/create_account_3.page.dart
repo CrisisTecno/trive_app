@@ -92,19 +92,6 @@ class _CreateAccountScreen3State extends State<CreateAccountScreen3> {
               ),
             ],
           );
-
-          // return AlertDialog(
-          //   title: Text('Success'),
-          //   content: Text('User added successfully.'),
-          //   actions: [
-          //     TextButton(
-          //       onPressed: () {
-          //         Navigator.of(context).pushNamed(RouteManager.homePage);
-          //       },
-          //       child: Text('OK'),
-          //     ),
-          //   ],
-          // );
         },
       );
     } catch (error) {

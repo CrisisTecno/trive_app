@@ -11,12 +11,14 @@ class CardConexion extends StatefulWidget {
   final String title;
   final String about;
   final String userId;
+  final String url;
   const CardConexion({
     super.key,
     required this.nroFollowers,
     required this.title,
     required this.about,
     required this.userId,
+    required this.url,
   });
 
   @override
@@ -67,7 +69,7 @@ class _CardConexionState extends State<CardConexion> {
                                   BorderRadius.all(Radius.circular(50.w)),
                               child: FadeInImage.assetNetwork(
                                 placeholder: 'public/assets/loadings/lo3.gif',
-                                image: cardConection,
+                                image: widget.url,
                                 imageErrorBuilder:
                                     (context, error, stackTrace) {
                                   return Image.asset(

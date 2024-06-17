@@ -70,17 +70,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: CustomAppBarPerson(),
                   ),
                   Container(
-                    height: 300.h,
+                    height: 250.h,
                     child: Stack(
                       children: <Widget>[
-                        Container(
-                          height: 230.h,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'public/assets/images/background_1.png'),
-                              fit: BoxFit
-                                  .cover, // Asegúrate de que la imagen cubra todo el fondo
+                        Center(
+                          child: Container(
+                            height: 230.h,
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.h)),
+                              child: FadeInImage.assetNetwork(
+                                placeholder: 'public/assets/loadings/lo3.gif',
+                                image: userData['secondImage'],
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                      'public/assets/images/background_1.png'); // Ruta de la imagen por defecto
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -88,17 +95,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           left: 30.w,
                           bottom: 0,
                           child: Container(
+                            width: 150.h,
+                            height: 150.h,
                             padding: EdgeInsets.all(3.h),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
                             ),
                             margin: EdgeInsets.only(top: 16),
-                            child: CircleAvatar(
-                              radius: 70.h,
-                              backgroundImage: AssetImage(
-                                  'public/assets/images/profile_1.png'),
-                              backgroundColor: Colors.white,
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.h)),
+                              child: FadeInImage.assetNetwork(
+                                placeholder: 'public/assets/loadings/lo3.gif',
+                                image: userData['mainImage'],
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                      'public/assets/images/background_1.png'); // Ruta de la imagen por defecto
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -229,6 +245,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Row(
                             children: [
                               CardConexion(
+                                url: "",
                                 userId: 'xaxaxa',
                                 title: 'SCristhian',
                                 about: 'hola mundo',

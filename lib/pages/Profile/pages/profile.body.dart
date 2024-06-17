@@ -70,9 +70,17 @@ class _ProfileState extends State<Profile> {
                 height: 300.h,
                 child: Stack(
                   children: <Widget>[
-                    UserBackgroundWidget(),
+                    UserBackgroundWidget(
+                      backgroundImageUrl: userData['secondImage'],
+                      profileImageUrl: userData['mainImage'],
+                    ),
                     Positioned(
-                        left: 30.w, bottom: 0, child: UserProfileWidget()),
+                        left: 30.w,
+                        bottom: 0,
+                        child: UserProfileWidget(
+                          profileImageUrl: userData['mainImage'],
+                          backgroundImageUrl: userData['mainImage'],
+                        )),
                   ],
                 ),
               ),
@@ -179,6 +187,7 @@ class _ProfileState extends State<Profile> {
                       child: Row(
                         children: [
                           CardConexion(
+                            url: "",
                             userId: 'xaxa',
                             title: 'SCristhian',
                             about: 'hola mundo',

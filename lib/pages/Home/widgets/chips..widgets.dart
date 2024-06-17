@@ -74,12 +74,14 @@ class _CarruselSocialState extends State<CarruselSocial> {
                   print("User ID: ${userSnapshot.id}");
                   print("nro. followers " + nroFollowers);
                   print(userData['name']);
+                  print(userData['mainImage']);
                   print(userData['occupation']);
 
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: CardConexion(
                       nroFollowers: nroFollowers,
+                      url: userData['mainImage'],
                       title: userData['name'] ?? '',
                       about: userData['occupation'] ?? '',
                       userId: personId,
