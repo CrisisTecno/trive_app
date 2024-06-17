@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.trive_bysc"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()

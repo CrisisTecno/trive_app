@@ -1,11 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:trive_bysc/pages/Create%20Account/widgets/my_chips.widgets.dart';
+import 'package:trive_bysc/pages/Publish/widgets/chip_publish_privacity_2.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/utils.dart';
-
+import 'package:firebase_storage/firebase_storage.dart';
 import '../../../widgets/widgets.dart';
 import '../widgets/app_bar.publish.dart';
 import '../widgets/chip_publish_privacity.dart';
 import '../widgets/choice_chip.dart';
+import 'package:image_picker/image_picker.dart';
+
+import 'dart:io';
+
+final FirebaseStorage storage = FirebaseStorage.instance;
 
 class PostScreen extends StatefulWidget {
   @override
@@ -13,6 +23,63 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
+  List<String> selectedChips = [];
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  List<File> selectedImages = [];
+  TextEditingController _controller = TextEditingController();
+
+  Future<List<String>> uploadImagesToFirebase(
+      List<File> images, String content, List<String> topics) async {
+    List<String> downloadUrls = [];
+    print("llega aca");
+    for (File image in images) {
+      //de aca sacamos el texto de las imagenes
+      print("Iterando sobre la imagen: ${image.path}");
+      final String name = image.path.split('/').last;
+      final Reference ref = storage.ref().child('publication').child(name);
+      final UploadTask uploadTask = ref.putFile(image);
+      print(uploadTask);
+      try {
+        print("Iniciando la subida de la imagen: ${image.path}");
+        TaskSnapshot snapshot = await uploadTask;
+        print("La subida de la imagen ${image.path} está completa");
+        print("La subida de la imagen ${image.path} está completa");
+
+        String downloadUrl = await snapshot.ref.getDownloadURL();
+
+        downloadUrls.add(downloadUrl);
+      } catch (e) {
+        print("Error al subir la imagen ${image.path}: $e");
+      }
+    }
+
+    print("Todas las imágenes se han subido correctamente");
+    print(downloadUrls);
+    final Timestamp timestamp = Timestamp.now();
+    final triveProvider = Provider.of<TriveProvider>(context, listen: false);
+    print(triveProvider);
+    print(timestamp);
+    print(content);
+    print(topics);
+    DocumentReference docRef = await firestore.collection("Publications").add({
+      "createAt": timestamp,
+      "content": content,
+      "author": triveProvider.userId,
+      "images": downloadUrls,
+      "likes": [],
+      "topics": topics
+    });
+    print(docRef);
+
+    return downloadUrls;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,7 +96,7 @@ class _PostScreenState extends State<PostScreen> {
                     width: 80.h,
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(
-                        'https://s3-alpha-sig.figma.com/img/8189/2832/94e37838f054caf199bf848a4cfc50c1?Expires=1708300800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=L36PDln5lIfwpdO3LwJ9gm~9D4KdBak2sdpWn6CaCL9gt28v4FbJ-WXQyKEId4VQTANQEuJOHe-Wt15MKLqaLMr0EJt3Kf1lP1eAi~RocAPo52rkdsXLAky-YGFbdyQGc1Rvwe9pmFkfn88U2BK4K8yak8TZYhi58oBwh6nkK5Jy627sI9GUnvd0ObNrU6GOv7shkogBBHvW6rkva7x1-ygB8m3KJyvnz~DJiHr3L7GF-hpHS~afnc0cAUs2Oej~1VCENcZS2WUw26d0RU95tppPmxsvKHZ1Yo6yzy4VYHxLuCkgLONJRkU6Bf-R~gTIZUd3TTSrJTVKfbHTMZc9Rg__',
+                        'https://scontent.flpb2-2.fna.fbcdn.net/v/t39.30808-6/442495944_7593308070761015_6087254766999990283_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Bk5mPOEGpAIQ7kNvgGjT3-s&_nc_ht=scontent.flpb2-2.fna&oh=00_AYBxa0upjGwMlXC9mjFQ9Iu4bEJU3X8uci9XS1NaS5lRQA&oe=66670FFB',
                       ),
                     ),
                   ),
@@ -37,7 +104,7 @@ class _PostScreenState extends State<PostScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Enrique Pablos',
+                      Text('Steve Trabajos',
                           style: TextStyle(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: 16,
@@ -45,7 +112,9 @@ class _PostScreenState extends State<PostScreen> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      ChipOptionPublishPrivacity(label: 'Publicar',),
+                      ChipOptionPublishPrivacity2(
+                        label: 'Publicar',
+                      ),
                     ],
                   ),
                 ],
@@ -54,9 +123,22 @@ class _PostScreenState extends State<PostScreen> {
             SizedBox(
               height: 15.h,
             ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 20.h),
+            //   child: TextField(
+            //     decoration: InputDecoration(
+
+            //       hintText: '¿Qué estás pensando?',
+            //       border: InputBorder.none,
+            //       contentPadding: EdgeInsets.all(16),
+            //     ),
+            //   ),
+            // ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.h),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
+                controller:
+                    _controller, // Asigna el TextEditingController al TextField
                 decoration: InputDecoration(
                   hintText: '¿Qué estás pensando?',
                   border: InputBorder.none,
@@ -64,63 +146,280 @@ class _PostScreenState extends State<PostScreen> {
                 ),
               ),
             ),
-            Spacer(),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Text('Elige una imagen'),
+            Spacer(
+              flex: 5,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                "Selecciona un topic para la publicacion: ",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(5, (index) {
-                  return Container(
-                    width:
-                        100.0, 
-                    height: 100.0, 
-                    color: Colors.grey[300],
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.all(
-                        8.0), 
-                  );
-                }),
-              ),
+            ReusableChips(
+              chipLabels: [
+                'Marketing',
+                'Finanzas',
+                'Ventas',
+                'Publicidad',
+                'Liderazgo',
+                'Bienestar'
+              ],
+              onSelectedLabelsChanged: (selectedLabels) {
+                setState(() {
+                  selectedChips.addAll(selectedLabels);
+                  selectedChips = selectedChips.toSet().toList();
+                });
+              },
             ),
-            SizedBox(height: 20.h,),
+            Spacer(
+              flex: 1,
+            ),
+            //aca se agregara la imagen
+            SelectedImagesIndicator(selectedCount: selectedImages.length),
+
+            SizedBox(
+              height: 20.h,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-        
-                SvgPicture.asset( 'public/assets/icons/galery.svg',),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 2.h,vertical: 2.h),
-                        height: 30.h,
-                        width: 50.h,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.h)),
-                            color: primary),
-                  child: SvgPicture.asset( 'public/assets/icons/camera_2.svg',)
-                  ),
-                SvgPicture.asset( 'public/assets/icons/+.svg',),
+                GalleryButton(onImagesSelected: (images) {
+                  setState(() {
+                    selectedImages = images;
+                  });
+                }),
+                CameraButton(),
+                // SvgPicture.asset(
+                //   'public/assets/icons/+.svg',
+                // ),
               ],
             ),
-            SizedBox(height: 20.h,),
+
+            SizedBox(
+              height: 20.h,
+            ),
             CustomButton(
-                  onClick: () {
-                  },
-                  title: 'Publicar',
-                  backgroundColor: primary,
-                  titleColor: Colors.white,
-                ),
-                SizedBox(height: 20.h,),
+              onClick: () async {
+                String textoIngresado = _controller.text;
+                if (selectedImages.isNotEmpty &&
+                    textoIngresado != '' &&
+                    selectedChips != null &&
+                    selectedChips != []) {
+                  try {
+                    print(selectedImages);
+                    print(textoIngresado);
+                    print(selectedChips);
+                    List<String> imageUrls = await uploadImagesToFirebase(
+                        selectedImages, textoIngresado, selectedChips);
+                    // Aquí puedes guardar las URLs en tu base de datos Firebase
+                    print('URLs de imágenes: $imageUrls');
+                  } catch (e) {
+                    showDialog(
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Center(
+                            child: Text(
+                              'Error al subir la Publicacion',
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          content: Text(
+                            'Ocurrio un error al lanzar la publicacion espera',
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          actions: <Widget>[
+                            Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 50.w, vertical: 2.w),
+                                  decoration: BoxDecoration(
+                                      color: primary,
+                                      border:
+                                          Border.all(width: 2, color: primary),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12.w))),
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                      context: context,
+                    );
+                  }
+                } else {
+                  showDialog(
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Center(
+                          child: Text(
+                            'Campos Incompletos',
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        content: Text(
+                          'Por favor, complete todos los campos topics y imagen.',
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        actions: <Widget>[
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 50.w, vertical: 2.w),
+                                decoration: BoxDecoration(
+                                    color: primary,
+                                    border:
+                                        Border.all(width: 2, color: primary),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(12.w))),
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    context: context,
+                  );
+                }
+              },
+              title: 'Publicar',
+              backgroundColor: primary,
+              titleColor: Colors.white,
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
           ],
         ),
-
       ),
     );
   }
 }
 
+class CameraButton extends StatefulWidget {
+  @override
+  _CameraButtonState createState() => _CameraButtonState();
+}
+
+class _CameraButtonState extends State<CameraButton> {
+  File? _imageFile;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _openCamera,
+      child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
+          height: 40.h,
+          width: 50.h,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(15.h)),
+              color: primary),
+          child: SvgPicture.asset(
+            'public/assets/icons/camera_2.svg',
+          )),
+    );
+  }
+
+  Future<void> _openCamera() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedFile != null) {
+        _imageFile = File(pickedFile.path);
+      }
+    });
+  }
+}
+
+class GalleryButton extends StatefulWidget {
+  final Function(List<File>) onImagesSelected;
+
+  const GalleryButton({Key? key, required this.onImagesSelected})
+      : super(key: key);
+
+  @override
+  _GalleryButtonState createState() => _GalleryButtonState();
+}
+
+class _GalleryButtonState extends State<GalleryButton> {
+  List<File> _selectedImages = [];
+
+  Future<void> _pickImages() async {
+    final picker = ImagePicker();
+    final pickedImages = await picker.pickMultiImage();
+
+    if (pickedImages != null) {
+      setState(() {
+        _selectedImages =
+            pickedImages.map((image) => File(image.path)).toList();
+      });
+      widget.onImagesSelected(_selectedImages);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _pickImages,
+      child: SvgPicture.asset(
+        'public/assets/icons/galery.svg',
+      ),
+    );
+  }
+}
+
+class SelectedImagesIndicator extends StatelessWidget {
+  final int selectedCount;
+
+  const SelectedImagesIndicator({Key? key, required this.selectedCount})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: selectedCount > 0,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: primary,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          'Se seleccionaron $selectedCount imágenes',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
