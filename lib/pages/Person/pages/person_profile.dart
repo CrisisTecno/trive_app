@@ -1,13 +1,39 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 import '../../../widgets/widgets.dart';
 import '../../pages.dart';
 import 'person_page.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  late Future<DocumentSnapshot> _userData;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _userData = _fetchPersonData();
+  }
+
+  Future<DocumentSnapshot> _fetchPersonData() async {
+    final userProvider = Provider.of<TriveProvider>(context);
+    final userId = userProvider.personId;
+    return FirebaseFirestore.instance.collection('Users').doc(userId).get();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,197 +41,212 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           physics: ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
-                child: CustomAppBarPerson(),
-              ),
-              Container(
-                height: 300.h,
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      height: 230.h,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                              'public/assets/images/background_1.png'),
-                          fit: BoxFit
-                              .cover, // Asegúrate de que la imagen cubra todo el fondo
+          child: FutureBuilder<DocumentSnapshot>(
+            future: _userData,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text('Ocurrio un error'),
+                );
+              }
+              if (!snapshot.hasData) {
+                return Center(
+                  child: Text("No se encontraron los datos"),
+                );
+              }
+
+              final userData = snapshot.data!.data() as Map<String, dynamic>;
+              print(userData);
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: CustomAppBarPerson(),
+                  ),
+                  Container(
+                    height: 300.h,
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          height: 230.h,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'public/assets/images/background_1.png'),
+                              fit: BoxFit
+                                  .cover, // Asegúrate de que la imagen cubra todo el fondo
+                            ),
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          left: 30.w,
+                          bottom: 0,
+                          child: Container(
+                            padding: EdgeInsets.all(3.h),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            margin: EdgeInsets.only(top: 16),
+                            child: CircleAvatar(
+                              radius: 70.h,
+                              backgroundImage: AssetImage(
+                                  'public/assets/images/profile_1.png'),
+                              backgroundColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    Positioned(
-                      left: 30.w,
-                      bottom: 0,
-                      child: Container(
-                        padding: EdgeInsets.all(3.h),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        margin: EdgeInsets.only(top: 16),
-                        child: CircleAvatar(
-                          radius: 70.h,
-                          backgroundImage:
-                              AssetImage('public/assets/images/profile_1.png'),
-                          backgroundColor: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Enrique Pablos',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 25.h)),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(userData['name'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 25.h)),
+                            SizedBox(
+                              width: 15.h,
+                            ),
+                            SvgPicture.asset(
+                              'public/assets/icons/verificated.svg',
+                              height: 38.h,
+                              width: 38.h,
+                              fit: BoxFit.cover,
+                            )
+                          ],
+                        ),
                         SizedBox(
-                          width: 15.h,
+                          height: 10.h,
                         ),
-                        SvgPicture.asset(
-                          'public/assets/icons/verificated.svg',
-                          height: 38.h,
-                          width: 38.h,
-                          fit: BoxFit.cover,
-                        )
+                        Text(userData['occupation'],
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18.h,
+                                color: primary)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            CustomLabelProfile(
+                              label: userData['followers'].length.toString() +
+                                  ' seguidores',
+                              pathSvg: 'public/assets/icons/people.svg',
+                            ),
+                            CustomLabelProfile(
+                              label: userData['followers'].length.toString() +
+                                  ' seguidores',
+                              pathSvg: 'public/assets/icons/thunder_border.svg',
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Text(userData['about'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18.h,
+                              color: Colors.black,
+                            )),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Wrap(
+                          spacing: 5.h,
+                          runSpacing: 1.h,
+                          children: List<Widget>.from(
+                              (userData['topics'] as List<dynamic>)
+                                  .map((topic) {
+                            return CustomTag(label: '#' + topic.toString());
+                          })),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        CustomButtonProfile(
+                          onClick: () {},
+                          backgroundColor: primary,
+                          title: 'Conectar',
+                          titleColor: Colors.white,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        CustomButtonProfile(
+                          onClick: () {},
+                          backgroundColor: Colors.white,
+                          title: 'Suscribirme',
+                          titleColor: primary,
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Divider(
+                          height: 2.h,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Text('Puedo ayudarte en',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 24.h)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Text(userData['help'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18.h,
+                              color: Colors.black,
+                            )),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Text('Mis conexiones',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 24.h)),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              CardConexion(
+                                userId: 'xaxaxa',
+                                title: 'SCristhian',
+                                about: 'hola mundo',
+                                nroFollowers: '0',
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text('Co founder de Trive ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 18.h,
-                            color: primary)),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        CustomLabelProfile(
-                          label: '200K seguidores',
-                          pathSvg: 'public/assets/icons/people.svg',
-                        ),
-                        CustomLabelProfile(
-                          label: '+500 conexiones',
-                          pathSvg: 'public/assets/icons/thunder_border.svg',
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                        'Programador del Tecnológico de Mty, fundador de Scaleflow Technologies, una desarrolladora de software; y de Trive, esta gran app.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18.h,
-                          color: Colors.black,
-                        )),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Wrap(spacing: 20.h, runSpacing: 2.h, children: [
-                      CustomTagProfile(
-                        label: '#Marketing ',
-                      ),
-                      CustomTagProfile(
-                        label: '#Negocios ',
-                      ),
-                      CustomTagProfile(
-                        label: '#Emprendimiento ',
-                      ),
-                      CustomTagProfile(
-                        label: '#Startups ',
-                      ),
-                      CustomTagProfile(
-                        label: '#Startups ',
-                      ),
-                      CustomTagProfile(
-                        label: '#Startups ',
-                      )
-                    ]),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    CustomButtonProfile(
-                      onClick: () {},
-                      backgroundColor: primary,
-                      title: 'Conectar',
-                      titleColor: Colors.white,
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    CustomButtonProfile(
-                      onClick: () {},
-                      backgroundColor: Colors.white,
-                      title: 'Suscribirme',
-                      titleColor: primary,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Divider(
-                      height: 2.h,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text('Puedo ayudarte en',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 24.h)),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                        'Consejería para tu empresa de tecnología, conectarte con personas que te puedan ayudar y desarrollar tu idea.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18.h,
-                          color: Colors.black,
-                        )),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text('Mis conexiones',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 24.h)),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          CardConexion(),
-                          CardConexion(),
-                          CardConexion(),
-                          CardConexion(),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                  ],
-                ),
-              ),
-              PersonPageState()
-            ],
+                  ),
+                  PersonPageState()
+                ],
+              );
+            },
           ),
         ),
       ),

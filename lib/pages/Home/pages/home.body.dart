@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:trive_bysc/pages/Home/widgets/chips..widgets.dart';
 import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/utils.dart';
@@ -60,9 +61,16 @@ class Home extends StatelessWidget {
               height: 20.h,
             ),
             ClipRRect(
-                borderRadius:
-                    BorderRadiusDirectional.all(Radius.circular(30.h)),
-                child: Image.network(banner)),
+              borderRadius: BorderRadiusDirectional.all(Radius.circular(30.h)),
+              child: FadeInImage.assetNetwork(
+                placeholder: 'public/assets/loadings/lo3.gif',
+                image: banner,
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                      'public/assets/images/background_1.png'); // Ruta de la imagen por defecto
+                },
+              ),
+            ),
             SizedBox(
               height: 20.h,
             ),
@@ -87,17 +95,19 @@ class Home extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CardConexion(),
-                  CardConexion(),
-                  CardConexion(),
-                  CardConexion(),
-                ],
-              ),
-            ),
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Row(
+            //     children: [
+            //       CardConexion(
+            //         title: 'SCristhian',
+            //         about: 'hola mundo',
+            //         nroFollowers: '0',
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            CarruselSocial(),
             SizedBox(
               height: 20.h,
             ),
@@ -105,7 +115,7 @@ class Home extends StatelessWidget {
               color: Colors.black.withOpacity(0.5),
             ),
             SocialCard(),
-            SocialCard(),
+            // SocialCard(),
           ],
         ),
       ),

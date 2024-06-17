@@ -48,6 +48,7 @@ class _CreateAccountScreen3State extends State<CreateAccountScreen3> {
         'created': timestamp,
         'mainImage': "",
         'secondImage': "",
+        'followers': [""],
         'phone': ""
       });
 

@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:trive_bysc/pages/pages.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
-class CardConexion extends StatelessWidget {
+class CardConexion extends StatefulWidget {
+  final String nroFollowers;
+  final String title;
+  final String about;
+  final String userId;
   const CardConexion({
     super.key,
+    required this.nroFollowers,
+    required this.title,
+    required this.about,
+    required this.userId,
   });
 
   @override
+  State<CardConexion> createState() => _CardConexionState();
+}
+
+class _CardConexionState extends State<CardConexion> {
+  @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<TriveProvider>(context, listen: false);
+
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 10.h),
         height: 290.h,
@@ -49,15 +66,15 @@ class CardConexion extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50.w)),
                               child: FadeInImage.assetNetwork(
-                                  placeholder: 'public/assets/loadings/lo3.gif',
-                                  image: cardConection),
+                                placeholder: 'public/assets/loadings/lo3.gif',
+                                image: cardConection,
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                      'public/assets/images/background_1.png'); // Ruta de la imagen por defecto
+                                },
+                              ),
                             ),
-                            // child: CircleAvatar(
-                            //   backgroundImage: NetworkImage(
-                            //     cardConection,
-                            //     scale: 100.h,
-                            //   ),
-                            // ),
                           ),
                           Spacer(),
                         ],
@@ -90,10 +107,11 @@ class CardConexion extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
+                    userProvider.setPersonData(widget.userId);
                     Navigator.of(context)
                         .pushNamed(RouteManager.person_profile);
                   },
-                  child: Text('Enrique Pablos',
+                  child: Text(widget.title,
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 17.h,
@@ -102,7 +120,8 @@ class CardConexion extends StatelessWidget {
                 SizedBox(
                   height: 5.h,
                 ),
-                Text('Fundador de Skipeat',
+                Text(widget.about,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 15.h,
@@ -114,7 +133,7 @@ class CardConexion extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustomLabel(
-                      label: '+ 5k',
+                      label: widget.nroFollowers,
                       pathSvg: 'public/assets/icons/people.svg',
                     ),
                   ],

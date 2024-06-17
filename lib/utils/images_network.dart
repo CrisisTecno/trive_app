@@ -1,5 +1,5 @@
 const banner =
-    "https://scontent.flpb2-2.fna.fbcdn.net/v/t39.30808-6/447780646_309281055565697_5139916409025549143_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=it-y67ceQ3IQ7kNvgG2DqDY&_nc_ht=scontent.flpb2-2.fna&oh=00_AYAHatBPGak9xY3dwU_w-bs1GHmcbRhgz9KwW6gfn9xk_g&oe=6670092F";
+    "https://scontent.flpb2-1.fna.fbcdn.net/v/t39.30808-6/444783968_305478802612589_6679507348627578786_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=V4Kziamr7QYQ7kNvgEd_dhE&_nc_ht=scontent.flpb2-1.fna&oh=00_AYCB8csOXM_Faa5lj7X7XRPiXczSG_t1ZIm5wMf-kLrlRQ&oe=66703AD5";
 const cardConection =
     "https://scontent.flpb2-2.fna.fbcdn.net/v/t39.30808-6/442495944_7593308070761015_6087254766999990283_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=x0nAd9f6pKQQ7kNvgF3qbY2&_nc_ht=scontent.flpb2-2.fna&oh=00_AYDc4iA0oDiWBAefkc0eyFE7QD5ThDasur3mpCHmLuLUOw&oe=6670123B";
 const publish =

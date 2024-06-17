@@ -178,10 +178,12 @@ class _ProfileState extends State<Profile> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          CardConexion(),
-                          CardConexion(),
-                          CardConexion(),
-                          CardConexion(),
+                          CardConexion(
+                            userId: 'xaxa',
+                            title: 'SCristhian',
+                            about: 'hola mundo',
+                            nroFollowers: '0',
+                          ),
                         ],
                       ),
                     ),
