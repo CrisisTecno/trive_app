@@ -135,8 +135,8 @@ class _DairyPublishButtonState extends State<DairyPublishButton> {
             children: [
               _navigationButton('Publicaciones', 0),
               _navigationButton('Chat grupal', 1),
-              _navigationButton('Foro', 2),
-              _navigationButton('Eventos', 3),
+              // _navigationButton('Foro', 2),
+              // _navigationButton('Eventos', 3),
             ],
           ),
           Expanded(

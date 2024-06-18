@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:trive_bysc/pages/Person/pages/chip.widget.dart';
 import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
@@ -234,26 +235,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Text('Mis conexiones',
+                        Text('Conexiones de ' + userData['name'],
                             style: TextStyle(
                                 fontWeight: FontWeight.w700, fontSize: 24.h)),
                         SizedBox(
                           height: 20.h,
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              CardConexion(
-                                url: "",
-                                userId: 'xaxaxa',
-                                title: 'SCristhian',
-                                about: 'hola mundo',
-                                nroFollowers: '0',
-                              ),
-                            ],
-                          ),
-                        ),
+                        //aca cambio de las conexiones
+                        CarruselSocial1(),
+
                         SizedBox(
                           height: 20.h,
                         ),

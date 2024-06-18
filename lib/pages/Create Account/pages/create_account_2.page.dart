@@ -27,9 +27,9 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.email);
-    print(widget.password);
-    print(widget.repeatPassword);
+    // print(widget.email);
+    // print(widget.password);
+    // print(widget.repeatPassword);
     Size screenSize = MediaQuery.of(context).size;
 
     bool allFieldsFilled = _nameController.text.isNotEmpty &&

@@ -54,9 +54,9 @@ class _CarruselSocialState extends State<CarruselSocial> {
             return Center(child: Text('No users found'));
           } else {
             List<DocumentSnapshot<Object?>> users = snapshot.data!.docs;
-            users.forEach((userSnapshot) {
-              print(userSnapshot.data());
-            });
+            // users.forEach((userSnapshot) {
+            //   print(userSnapshot.data());
+            // });
 
             return Container(
               width: double.infinity,
@@ -68,14 +68,14 @@ class _CarruselSocialState extends State<CarruselSocial> {
                   var userSnapshot = users[index];
                   var userData = userSnapshot.data() as Map<String, dynamic>;
                   int followersCount =
-                      (userData['followers'] as List<dynamic>).length - 1;
+                      (userData['followers'] as List<dynamic>).length;
                   String nroFollowers = followersCount.toString();
                   String personId = userSnapshot.id;
-                  print("User ID: ${userSnapshot.id}");
-                  print("nro. followers " + nroFollowers);
-                  print(userData['name']);
-                  print(userData['mainImage']);
-                  print(userData['occupation']);
+                  // print("User ID: ${userSnapshot.id}");
+                  // print("nro. followers " + nroFollowers);
+                  // print(userData['name']);
+                  // print(userData['mainImage']);
+                  // print(userData['occupation']);
 
                   return Padding(
                     padding: EdgeInsets.all(8.0),

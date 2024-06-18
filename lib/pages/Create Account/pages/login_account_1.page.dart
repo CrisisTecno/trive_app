@@ -69,7 +69,7 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
           .where('email', isEqualTo: 'tecn0crisis0@gmail.com')
           .get();
       if (querySnapshot.docs.isNotEmpty) {
-        print("el usuario existe");
+        // print("el usuario existe");
         final userProvider = Provider.of<TriveProvider>(context, listen: false);
         var doc = querySnapshot.docs.first;
         userProvider.setUserData(

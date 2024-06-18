@@ -32,34 +32,36 @@ class _PublicationsState extends State<Publications> {
 
       List<QueryDocumentSnapshot> publications = publicationSnapshot.docs;
       for (var publication in publications) {
-        print("publication");
-        print(publication.data());
         Map<String, dynamic> publicationData =
             publication.data() as Map<String, dynamic>;
         String authorId = publicationData['author'];
-        print(authorId);
-        QuerySnapshot authorSnapshot = await FirebaseFirestore.instance
+        // print("id: " + authorId);
+        DocumentSnapshot authorSnapshot = await FirebaseFirestore.instance
             .collection('Users')
-            .where(authorId)
+            .doc(authorId)
             .get();
-        if (authorSnapshot.docs.isNotEmpty) {
-          print("venimos aca");
+
+        if (authorSnapshot.exists) {
+          // print("Author Data: ${authorSnapshot.data()}");
           Map<String, dynamic> authorData =
-              authorSnapshot.docs.first.data() as Map<String, dynamic>;
-          print("aca 1");
-          print(authorData);
-          publicationData['authorInfo'] = authorData;
+              authorSnapshot.data() as Map<String, dynamic>;
+
+          publicationData['authorInfo'] = {
+            'id': authorSnapshot.id,
+            ...authorData,
+          };
+          // print(publicationData);
           combinedData.add(publicationData);
-          print("combinancion");
-          print(combinedData);
         }
       }
-      print("aca bro");
-      print(combinedData);
+      // print("aca bro final ");
+      // print(combinedData[0]);
+      // print(combinedData[1]);
+      // print(combinedData[2]);
       setState(() {
         _data = combinedData;
-        print("data");
-        print(_data);
+        // print("data");
+        // print(_data);
       });
     } catch (e) {
       print("Error fetching data: $e");
@@ -79,6 +81,7 @@ class _PublicationsState extends State<Publications> {
                 List<String> images = List<String>.from(publication['images']);
                 List<String> topics = List<String>.from(publication['topics']);
                 return SocialCard(
+                  userId: author['id'],
                   name: author['name'],
                   ocupation: author['occupation'],
                   content: publication['content'],

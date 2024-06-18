@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:trive_bysc/pages/Profile/pages/profile.body.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
 class SocialCard extends StatefulWidget {
   final String name;
   final String ocupation;
+  final String userId;
   final String content;
   final String imageProfile;
   final List<String> imagesUrl;
@@ -19,7 +22,8 @@ class SocialCard extends StatefulWidget {
       required this.content,
       required this.imagesUrl,
       required this.topics,
-      required this.imageProfile});
+      required this.imageProfile,
+      required this.userId});
   @override
   _SocialCardState createState() => _SocialCardState();
 }
@@ -30,6 +34,8 @@ class _SocialCardState extends State<SocialCard> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<TriveProvider>(context, listen: false);
+
     Size screensize = MediaQuery.of(context).size;
     return Card(
       color: Colors.white,
@@ -39,75 +45,81 @@ class _SocialCardState extends State<SocialCard> {
           Padding(
             padding: EdgeInsets.only(
                 left: 15.h, right: 15.h, top: 15.h, bottom: 5.h),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  maxRadius: 25.w,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(25.h)),
-                    child: FadeInImage.assetNetwork(
-                        placeholder: 'public/assets/loadings/lo3.gif',
-                        image: widget.imageProfile),
+            child: GestureDetector(
+              onTap: () {
+                userProvider.setPersonData(widget.userId);
+                Navigator.of(context).pushNamed(RouteManager.person_profile);
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    maxRadius: 25.w,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(25.h)),
+                      child: FadeInImage.assetNetwork(
+                          placeholder: 'public/assets/loadings/lo3.gif',
+                          image: widget.imageProfile),
+                    ),
                   ),
-                ),
-                SizedBox(width: 10.w),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.h,
+                              color: primary),
+                        ),
+                        Text(
+                          widget.ocupation,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300, fontSize: 15.h),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
                     children: [
-                      Text(
-                        widget.name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.h,
-                            color: primary),
-                      ),
-                      Text(
-                        widget.ocupation,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w300, fontSize: 15.h),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       isFavorite = !isFavorite;
+                      //     });
+                      //   },
+                      //   child: Container(
+                      //     height: 40.h,
+                      //     width: 40.h,
+                      //     padding: EdgeInsets.all(5.h),
+                      //     child: SvgPicture.asset(isFavorite
+                      //         ? 'public/assets/icons/start_green.svg'
+                      //         : 'public/assets/icons/start_grey.svg'), // Ajusta la ruta según tu proyecto
+                      //     decoration: BoxDecoration(
+                      //       color: Colors.transparent,
+                      //       borderRadius: BorderRadius.all(Radius.circular(20.h)),
+                      //     ),
+                      //   ),
+                      // ),
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     height: 40.h,
+                      //     width: 40.h,
+                      //     padding: EdgeInsets.all(5.h),
+                      //     child: SvgPicture.asset(
+                      //         'public/assets/icons/options.svg'), // Ajusta la ruta según tu proyecto
+                      //     decoration: BoxDecoration(
+                      //       color: Colors.transparent,
+                      //       borderRadius: BorderRadius.all(Radius.circular(20.h)),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
-                ),
-                Row(
-                  children: [
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     setState(() {
-                    //       isFavorite = !isFavorite;
-                    //     });
-                    //   },
-                    //   child: Container(
-                    //     height: 40.h,
-                    //     width: 40.h,
-                    //     padding: EdgeInsets.all(5.h),
-                    //     child: SvgPicture.asset(isFavorite
-                    //         ? 'public/assets/icons/start_green.svg'
-                    //         : 'public/assets/icons/start_grey.svg'), // Ajusta la ruta según tu proyecto
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.transparent,
-                    //       borderRadius: BorderRadius.all(Radius.circular(20.h)),
-                    //     ),
-                    //   ),
-                    // ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 40.h,
-                        width: 40.h,
-                        padding: EdgeInsets.all(5.h),
-                        child: SvgPicture.asset(
-                            'public/assets/icons/options.svg'), // Ajusta la ruta según tu proyecto
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.all(Radius.circular(20.h)),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Padding(
