@@ -34,16 +34,39 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
     });
 
     try {
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      print('Usuario inició sesión: ${userCredential.user}');
+
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .where('email', isEqualTo: emailController.text.trim())
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        print("el usuario existe");
+        final userProvider = Provider.of<TriveProvider>(context, listen: false);
+        var doc = querySnapshot.docs.first;
+        userProvider.setUserData(
+            doc.id, querySnapshot.docs.first.data() as Map<String, dynamic>);
+      } else {
+        print("el usuario no existe");
+      }
+      ;
+
+      //´por defecto
       // final userCredential =
       //     await FirebaseAuth.instance.signInWithEmailAndPassword(
-      //   email: emailController.text.trim(),
-      //   password: passwordController.text.trim(),
+      //   email: 'tecn0crisis0@gmail.com',
+      //   password: 'SCristhian69*',
       // );
       // print('Usuario inició sesión: ${userCredential.user}');
 
       // QuerySnapshot querySnapshot = await FirebaseFirestore.instance
       //     .collection('Users')
-      //     .where('email', isEqualTo: emailController.text.trim())
+      //     .where('email', isEqualTo: 'tecn0crisis0@gmail.com')
       //     .get();
       // if (querySnapshot.docs.isNotEmpty) {
       //   print("el usuario existe");
@@ -54,29 +77,6 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
       // } else {
       //   print("el usuario no existe");
       // }
-      // ;
-
-      //´por defecto
-      final userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: 'tecn0crisis0@gmail.com',
-        password: 'SCristhian69*',
-      );
-      print('Usuario inició sesión: ${userCredential.user}');
-
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('Users')
-          .where('email', isEqualTo: 'tecn0crisis0@gmail.com')
-          .get();
-      if (querySnapshot.docs.isNotEmpty) {
-        // print("el usuario existe");
-        final userProvider = Provider.of<TriveProvider>(context, listen: false);
-        var doc = querySnapshot.docs.first;
-        userProvider.setUserData(
-            doc.id, querySnapshot.docs.first.data() as Map<String, dynamic>);
-      } else {
-        print("el usuario no existe");
-      }
 
       Navigator.of(context).pushNamed(RouteManager.homePage);
     } on FirebaseAuthException catch (e) {
@@ -233,22 +233,22 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
                         ),
                       ]),
                     ),
-                    SizedBox(height: 30.h),
+                    // SizedBox(height: 30.h),
+                    // // SocialSignInButton(
+                    // //   text: 'Iniciar sesión con Facebook',
+                    // //   iconPath: 'public/assets/icons/facebook.svg',
+                    // //   color: Colors.white,
+                    // //   titleColor: Colors.black,
+                    // //   onPressed: () {},
+                    // // ),
+                    // // SizedBox(height: 15),
                     // SocialSignInButton(
-                    //   text: 'Iniciar sesión con Facebook',
-                    //   iconPath: 'public/assets/icons/facebook.svg',
+                    //   text: 'Iniciar sesión con Google',
+                    //   iconPath: 'public/assets/icons/google.svg',
                     //   color: Colors.white,
                     //   titleColor: Colors.black,
                     //   onPressed: () {},
                     // ),
-                    // SizedBox(height: 15),
-                    SocialSignInButton(
-                      text: 'Iniciar sesión con Google',
-                      iconPath: 'public/assets/icons/google.svg',
-                      color: Colors.white,
-                      titleColor: Colors.black,
-                      onPressed: () {},
-                    ),
                     // SizedBox(height: 15),
                     // SocialSignInButton(
                     //   text: 'Inicia sesión con Apple',

@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
@@ -15,15 +19,18 @@ class CustomAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(RouteManager.menu);
-                },
-                child: SvgPicture.asset(
-                  'public/assets/icons/menu.svg',
-                  height: 40.h,
-                  width: 40.h,
-                ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.of(context).pushNamed(RouteManager.menu);
+              //   },
+              //   child: SvgPicture.asset(
+              //     'public/assets/icons/menu.svg',
+              //     height: 40.h,
+              //     width: 40.h,
+              //   ),
+              // ),
+              SizedBox(
+                width: 10,
               ),
               GestureDetector(
                 onTap: () {
@@ -57,27 +64,43 @@ class CustomAppBar extends StatelessWidget {
               ),
               Spacer(),
               GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(RouteManager.buypoint);
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+                  if (Platform.isAndroid) {
+                    SystemNavigator.pop();
+                  }
                 },
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      'public/assets/icons/thunder_blue.svg',
-                      height: 35.h,
-                      width: 35.h,
-                    ),
-                    Text(
-                      '150',
-                      style: TextStyle(
-                          fontSize: 26.h, fontWeight: FontWeight.bold),
-                    )
-                  ],
+                child: SvgPicture.asset(
+                  'public/assets/icons/fail.svg',
+                  height: 40.h,
+                  width: 40.h,
                 ),
               ),
               SizedBox(
-                width: 15.w,
-              )
+                width: 10,
+              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.of(context).pushNamed(RouteManager.buypoint);
+              //   },
+              //   child: Row(
+              //     children: [
+              //       SvgPicture.asset(
+              //         'public/assets/icons/thunder_blue.svg',
+              //         height: 35.h,
+              //         width: 35.h,
+              //       ),
+              //       Text(
+              //         '150',
+              //         style: TextStyle(
+              //             fontSize: 26.h, fontWeight: FontWeight.bold),
+              //       )
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(
+              //   width: 15.w,
+              // )
             ],
           ),
           Divider(),

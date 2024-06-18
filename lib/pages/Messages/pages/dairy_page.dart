@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/images_network.dart';
 import 'package:trive_bysc/utils/utils.dart';
 import 'package:trive_bysc/widgets/widgets.dart';
@@ -95,34 +97,116 @@ class _DairyPublishButtonState extends State<DairyPublishButton> {
 
   Future<void> onPost() async {
     try {
-      final Timestamp now = Timestamp.now();
-      DocumentReference docRef = await firestore.collection("calls").add({
-        "date": _selectedDate,
-        "hour": _selectedTime,
-        "createdAt": now,
-        "purpose": "MOTIVO",
-        "client": "02LCJYgfgUg5qNZF72X8FCdTcjO2",
-        "expert": "hUSX2j5WJSPdWP0c12nEU6zajKA3",
-        "status": "FOR_CONFIRMATION",
-      });
+      if (_selectedDate != null && _selectedTime != null) {
+        print("estamos por aca");
+        final triveProvider =
+            Provider.of<TriveProvider>(context, listen: false);
+        final Timestamp now = Timestamp.now();
+        print(triveProvider.personId);
 
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Success'),
-            content: Text('User added successfully.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(RouteManager.homePage);
-                },
-                child: Text('OK'),
+        DocumentReference docRef = await firestore.collection("Calls").add({
+          "date": _selectedDate,
+          "hour": _selectedTime,
+          "createAt": now,
+          "purpose": "xaxaxa",
+          "client": triveProvider.userId,
+          "expert": triveProvider.personId,
+          "status": "FOR_CONFIRMATION",
+        });
+
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Center(
+                child: Text(
+                  'Todo Salio Genial',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
               ),
-            ],
-          );
-        },
-      );
+              content: Text(
+                'Se a agendado correctamente, disfruta de trive',
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              actions: <Widget>[
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(RouteManager.homePage);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                      decoration: BoxDecoration(
+                          color: primary,
+                          border: Border.all(width: 2, color: primary),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(12.w))),
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Center(
+                child: Text(
+                  'Tenemos un Problemilla',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              content: Text(
+                'No se pudo agendar la cita verifica que todos los campos hayan sido ingresados',
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              actions: <Widget>[
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(RouteManager.homePage);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                      decoration: BoxDecoration(
+                          color: primary,
+                          border: Border.all(width: 2, color: primary),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(12.w))),
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      }
     } catch (error) {
       showDialog(
         context: context,
@@ -182,23 +266,24 @@ class _DairyPublishButtonState extends State<DairyPublishButton> {
     }
 
     try {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            child: ContactCard(
-              onChanged: onPost,
-              profileImageUrl: cardConection,
-              svgIconUrl: 'https://url_to_the_svg_icon',
-            ),
-          );
-        },
-      );
+      onPost();
+      // showDialog(
+      //   context: context,
+      //   builder: (BuildContext context) {
+      //     return Dialog(
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(30),
+      //       ),
+      //       elevation: 0,
+      //       backgroundColor: Colors.transparent,
+      //       child: ContactCard(
+      //         onChanged: onPost,
+      //         profileImageUrl: cardConection,
+      //         svgIconUrl: 'https://url_to_the_svg_icon',
+      //       ),
+      //     );
+      //   },
+      // );
     } catch (error) {
       showDialog(
         context: context,

@@ -31,6 +31,7 @@ class _SolicitudPartState extends State<SolicitudPart> {
     List<Map<String, dynamic>> combinedData = [];
 
     try {
+      print("mira aca");
       print(triveProvider.personId);
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('Calls')
@@ -104,7 +105,7 @@ class _SolicitudPartState extends State<SolicitudPart> {
           ? Center(
               child: _data == null || _data.isEmpty
                   ? Text(
-                      'No se encontraron conexiones',
+                      'No se encontraron Solicitudes',
                       style: TextStyle(
                           color: primary,
                           fontWeight: FontWeight.bold,
@@ -121,27 +122,43 @@ class _SolicitudPartState extends State<SolicitudPart> {
                 itemBuilder: (context, index) {
                   var userData = _data[index];
                   Timestamp dateTimestamp = userData['callData']['date'];
-                  Timestamp hourTimestamp = userData['callData']['hour'];
 
-                  String formattedTime = formatTime(hourTimestamp);
-                  String formattedDate = formatDate(dateTimestamp);
+                  if (userData['callData']['hour'] is String) {
+                    String formattedTime = userData['callData']['hour'];
+                    String formattedDate = formatDate(dateTimestamp);
+                    return Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: MeetingCard(
+                            status: userData['callData']['status'],
+                            id: userData['id'],
+                            profileImageUrl: userData['userData']['mainImage'],
+                            name: userData['userData']['name'],
+                            role: userData['userData']['occupation'],
+                            meetingTitle: userData['callData']['purpose'],
+                            meetingTime: formattedDate,
+                            meetingDate: formattedTime));
+                  } else {
+                    Timestamp hourTimestamp = userData['callData']['hour'];
+                    String formattedTime = formatTime(hourTimestamp);
+                    String formattedDate = formatDate(dateTimestamp);
+                    return Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: MeetingCard(
+                            status: userData['callData']['status'],
+                            id: userData['id'],
+                            profileImageUrl: userData['userData']['mainImage'],
+                            name: userData['userData']['name'],
+                            role: userData['userData']['occupation'],
+                            meetingTitle: userData['callData']['purpose'],
+                            meetingTime: formattedDate,
+                            meetingDate: formattedTime));
+                  }
+
                   // print("User ID: ${userSnapshot.id}");
                   // print("nro. followers " + nroFollowers);
                   // print(userData['name']);
                   // print(userData['mainImage']);
                   // print(userData['occupation']);
-
-                  return Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: MeetingCard(
-                          status: userData['callData']['status'],
-                          id: userData['id'],
-                          profileImageUrl: userData['userData']['mainImage'],
-                          name: userData['userData']['name'],
-                          role: userData['userData']['occupation'],
-                          meetingTitle: userData['callData']['purpose'],
-                          meetingTime: formattedDate,
-                          meetingDate: formattedTime));
                 },
               ),
             ),

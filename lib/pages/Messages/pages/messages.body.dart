@@ -67,6 +67,7 @@ class _MessagesState extends State<Messages> {
             'id': doc.id,
             'person': currentUserData,
             'otherUser': otherUserData,
+            'otherUserId': otherUserId,
             'chat': chatData,
           };
 
@@ -146,7 +147,7 @@ class _MessagesState extends State<Messages> {
                       itemCount: _data.length,
                       itemBuilder: (context, index) {
                         var userData = _data[index];
-                        print(userData['person']);
+                        print(userData['otherUserId']);
                         print(userData['chat']['createAt']);
                         Timestamp dateTimestamp = userData['chat']['createAt'];
                         String formattedDate = formatDate(dateTimestamp);
@@ -155,10 +156,10 @@ class _MessagesState extends State<Messages> {
                           padding: EdgeInsets.all(8.0),
                           child: MessageTile(
                             personData: userData['otherUser'],
-                            id: userData['id'],
-                            imageUrl: userData['person']['mainImage'],
-                            name: userData['person']['name'],
-                            messagePreview: userData['person']['occupation'],
+                            id: userData['otherUserId'],
+                            imageUrl: userData['otherUser']['mainImage'],
+                            name: userData['otherUser']['name'],
+                            messagePreview: userData['otherUser']['occupation'],
                             date: formattedDate,
                             messageCount: 1,
                           ),

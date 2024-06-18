@@ -20,6 +20,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   bool? seguido;
   late Future<DocumentSnapshot> _userData;
   @override
@@ -70,6 +71,134 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .collection('Users')
           .doc(userId)
           .update({'followers': followers});
+    }
+  }
+
+  Future<void> onPost() async {
+    final triveProvider = Provider.of<TriveProvider>(context, listen: false);
+    try {
+      if (triveProvider.userId != null && triveProvider.personId != null) {
+        print("estamos por aca");
+
+        final Timestamp now = Timestamp.now();
+        print(triveProvider.personId);
+
+        DocumentReference docRef = await firestore.collection("Chats").add({
+          "createAt": now,
+          "users": [triveProvider.userId, triveProvider.personId]
+        });
+
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Center(
+                child: Text(
+                  'Todo Salio Genial',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+              ),
+              content: Text(
+                'Estableciste una conversacion correctamente, disfruta de trive',
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              actions: <Widget>[
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(RouteManager.homePage);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                      decoration: BoxDecoration(
+                          color: primary,
+                          border: Border.all(width: 2, color: primary),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(12.w))),
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Center(
+                child: Text(
+                  'Tenemos un Problemilla',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              content: Text(
+                'Parece que la conversacion ya esta hecha',
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              actions: <Widget>[
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(RouteManager.homePage);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50.w, vertical: 2.w),
+                      decoration: BoxDecoration(
+                          color: primary,
+                          border: Border.all(width: 2, color: primary),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(12.w))),
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Failed to add user: $error'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -234,7 +363,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 20.h,
                         ),
                         CustomButtonProfile(
-                          onClick: () {},
+                          onClick: onPost,
                           backgroundColor: primary,
                           title: 'Conectar',
                           titleColor: Colors.white,

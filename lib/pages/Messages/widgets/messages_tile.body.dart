@@ -30,6 +30,7 @@ class MessageTile extends StatefulWidget {
 class _MessageTileState extends State<MessageTile> {
   @override
   Widget build(BuildContext context) {
+    print(widget.id);
     final userProvider = Provider.of<TriveProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
