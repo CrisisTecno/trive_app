@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:trive_bysc/provider/provider.dart';
 import 'package:trive_bysc/utils/Size/sizer.dart';
 import 'package:trive_bysc/utils/images_network.dart';
 
@@ -11,11 +13,23 @@ import '../widgets/custom_input_field.widget.dart';
 import 'chat.widget.dart';
 import 'chat_history.dart';
 
-class MessagesChatScreen extends StatelessWidget {
+class MessagesChatScreen extends StatefulWidget {
   const MessagesChatScreen({super.key});
 
   @override
+  State<MessagesChatScreen> createState() => _MessagesChatScreenState();
+}
+
+class _MessagesChatScreenState extends State<MessagesChatScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final triveProvider = Provider.of<TriveProvider>(context, listen: false);
+
     Size window = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -34,9 +48,9 @@ class MessagesChatScreen extends StatelessWidget {
           children: [
             MessagesAppBar(),
             ContactTile(
-              imageUrl: cardConection,
-              name: 'Carla Mendoza',
-              position: 'CEO de Lorem',
+              imageUrl: triveProvider.personData?['mainImage'] ?? '',
+              name: triveProvider.personData?['name'] ?? '',
+              position: triveProvider.personData?['occupation'] ?? '',
             ),
             // Container(
             //   color: Colors.red,

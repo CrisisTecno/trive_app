@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trive_bysc/pages/Messages/widgets/contac_card.widget.dart';
 import 'package:trive_bysc/utils/utils.dart';
 
-class ContactTile extends StatelessWidget {
+class ContactTile extends StatefulWidget {
   final String imageUrl;
   final String name;
   final String position;
@@ -15,6 +15,11 @@ class ContactTile extends StatelessWidget {
     required this.position,
   }) : super(key: key);
 
+  @override
+  State<ContactTile> createState() => _ContactTileState();
+}
+
+class _ContactTileState extends State<ContactTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,9 +48,27 @@ class ContactTile extends StatelessWidget {
                 },
               );
             },
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(imageUrl),
-              radius: 30,
+            child: Container(
+              width: 90.h,
+              height: 90.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              padding: EdgeInsets.all(2),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'public/assets/loadings/lo3.gif',
+                  image: widget.imageUrl,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'public/assets/images/background_1.png',
+                    );
+                  },
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
           SizedBox(width: 8),
@@ -54,14 +77,14 @@ class ContactTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  widget.name,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 Text(
-                  position,
+                  widget.position,
                   style: TextStyle(
                     color: Colors.white70,
                   ),

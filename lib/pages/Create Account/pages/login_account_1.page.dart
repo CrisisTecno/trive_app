@@ -197,7 +197,7 @@ class _LoginAccountScreen1State extends State<LoginAccountScreen1> {
                     SizedBox(height: 50.h),
                     ElevatedButton(
                       child: Text(
-                        'Iniciar Sesión',
+                        'Continuar',
                         style:
                             TextStyle(color: Color(0xffffffff), fontSize: 18.h),
                       ),

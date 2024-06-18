@@ -35,7 +35,7 @@ class _DairyTimePartSelectState extends State<DairyTimePartSelect> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Escoge una fecha',
+                Text('Fechas Elegidas',
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
@@ -95,6 +95,7 @@ class _DairyTimePartSelectState extends State<DairyTimePartSelect> {
     );
   }
 }
+//ACA VIENE LO DE LAS JUNTAS
 
 class CustomTextField extends StatefulWidget {
   final String hintText;

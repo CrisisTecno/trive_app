@@ -4,17 +4,23 @@ import 'package:flutter/material.dart';
 
 class TriveProvider with ChangeNotifier {
   Map<String, dynamic>? _userData;
+  Map<String, dynamic>? _personData;
   String? _userId;
   String? _personId;
 
   Map<String, dynamic>? get userData => _userData;
+  Map<String, dynamic>? get personData => _personData;
   String? get userId => _userId;
   String? get personId => _personId;
 
   void setUserData(String userId, Map<String, dynamic> data) {
     _userData = data;
     _userId = userId;
-    _personId = userId;
+    notifyListeners();
+  }
+
+  void setPersonComplete(Map<String, dynamic> data) {
+    _personData = data;
     notifyListeners();
   }
 
