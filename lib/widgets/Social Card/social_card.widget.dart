@@ -135,7 +135,7 @@ class _SocialCardState extends State<SocialCard> {
                   runSpacing: 1.h,
                   children: List<Widget>.from(
                       (widget.topics as List<String>).map((topic) {
-                    print("topics" + topic);
+                    // print("topics" + topic);
                     // return CustomTag(label: '#' + topic.toString());
                     return Text(
                       '#' + topic.toString(),

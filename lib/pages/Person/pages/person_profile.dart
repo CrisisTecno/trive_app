@@ -11,13 +11,16 @@ import '../../pages.dart';
 import 'person_page.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({
+    super.key,
+  });
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool? seguido;
   late Future<DocumentSnapshot> _userData;
   @override
   void initState() {
@@ -33,11 +36,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<DocumentSnapshot> _fetchPersonData() async {
     final userProvider = Provider.of<TriveProvider>(context);
     final userId = userProvider.personId;
-    return FirebaseFirestore.instance.collection('Users').doc(userId).get();
+    DocumentSnapshot userSnapshot =
+        await FirebaseFirestore.instance.collection('Users').doc(userId).get();
+    if (userSnapshot.exists) {
+      List<dynamic> followers = userSnapshot.get('followers');
+      setState(() {
+        seguido = followers.contains(userProvider.userId);
+      });
+    }
+    return userSnapshot;
+  }
+
+  Future<void> _updateFollowers() async {
+    final triveProvider = Provider.of<TriveProvider>(context, listen: false);
+    final userId = triveProvider.personId;
+    final myUserId = triveProvider.userId;
+
+    DocumentSnapshot userSnapshot =
+        await FirebaseFirestore.instance.collection('Users').doc(userId).get();
+
+    if (userSnapshot.exists) {
+      List<dynamic> followers = userSnapshot.get('followers');
+
+      if (followers.contains(myUserId)) {
+        print("removemos");
+        followers.remove(myUserId);
+      } else {
+        print("add");
+        followers.add(myUserId);
+      }
+
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .update({'followers': followers});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final triveProvider = Provider.of<TriveProvider>(context, listen: false);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -204,12 +242,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        CustomButtonProfile(
-                          onClick: () {},
-                          backgroundColor: Colors.white,
-                          title: 'Suscribirme',
-                          titleColor: primary,
-                        ),
+                        seguido!
+                            ? CustomButtonProfile(
+                                onClick: () async {
+                                  await _updateFollowers();
+                                  setState(() {
+                                    seguido = (userData['followers']
+                                        .contains(triveProvider.userId));
+                                  });
+                                },
+                                backgroundColor: Colors.white,
+                                title: 'Dejar de Seguir',
+                                titleColor: primary,
+                              )
+                            : CustomButtonProfile(
+                                onClick: () async {
+                                  await _updateFollowers();
+                                  setState(() {
+                                    print(userData['followers']
+                                        .contains(triveProvider.userId));
+                                    seguido = (userData['followers']
+                                        .contains(triveProvider.userId));
+                                  });
+                                },
+                                backgroundColor: Colors.white,
+                                title: 'Seguir',
+                                titleColor: primary,
+                              ),
+
                         SizedBox(
                           height: 20.h,
                         ),
