@@ -29,7 +29,7 @@
  
 </p>
 
-## ¿Qué es Trive App? 🌟
+## ¿Qué es Trive App? 
 
 **Trive App** es una aplicación móvil desarrollada con Flutter, diseñada para poder conectar a expertos en una area con aspirantes a la misma servimos como medio de comunicacion para de esta manera poder dar mas oportunidades a nuevos postulantes a aprender nuevos conceptos apitudes y habilidades que les serviran a lo largo de su camino profesional dentro del area de expertos
 
@@ -99,3 +99,4 @@ trive_app/
 ├── pubspec.yaml            # Archivo de configuración de Flutter
 └── README.md               # Este archivo
 ```
+
